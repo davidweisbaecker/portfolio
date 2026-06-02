@@ -537,8 +537,45 @@
     gap: clamp(2rem, 4vw, 3.5rem);
   }
   @media (min-width: 820px) {
-    .about-grid { grid-template-columns: 1fr 1.1fr; align-items: start; }
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 0;
+    }
+    /* Right column: text starts exactly at the 50% column edge (flush with
+       the B2B|AI tile divider), and is pushed down by one headline line-height
+       so the green line sits level with the TOP of the 2nd headline row
+       ("operational"). The clamp mirrors the headline's own font-size so the
+       offset scales with it. */
+    .about-grid .lede {
+      padding-top: clamp(3rem, 7.15vw, 5.3rem);
+    }
   }
+  .about-grid .display {
+    text-wrap: balance;
+    margin: 0;
+  }
+  /* Green accent line above the body copy */
+  .about-grid .lede {
+    position: relative;
+  }
+  @media (min-width: 820px) {
+    .about-grid .lede::before {
+      content: "";
+      position: absolute;
+      top: clamp(3rem, 7.15vw, 5.3rem);
+      left: 0;
+      width: 88px;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    /* nudge the first paragraph just below the line */
+    .about-grid .lede > p:first-child {
+      margin-top: 1rem;
+    }
+  }
+  .about .lede { padding-bottom: .4rem; }
   .about p + p { margin-top: 1.1rem; }
 
   /* Stats */
@@ -1256,8 +1293,8 @@
 
       <article class="toolcard">
         <div class="toolcard-num">02 / Operations</div>
-        <h3>Process Design &amp; ProdOps</h3>
-        <p>Streamlining handover between design and engineering with Jira, Confluence and automation — so velocity compounds.</p>
+        <h3>Process Design &amp; Ops</h3>
+        <p>Building lean operational workflows from the ground up — from briefing freelancers to documenting repeatable processes and templates that let a system run without me.</p>
       </article>
 
       <article class="toolcard">
@@ -1335,28 +1372,28 @@
 <!-- =========== CASE STUDY =========== -->
 <section class="section section--dark" id="case-study">
   <div class="wrap">
-    <span class="eyebrow">Featured Work &amp; Research</span>
+    <span class="eyebrow">Research Deep-Dive</span>
 
     <div class="case">
       <div>
         <h2 class="display">
           Designing for the <span class="accent">unpredictable</span>
         </h2>
-        <p class="case-sub">How to apply Microsoft's 18 Guidelines for Human–AI Interaction to modern SaaS products.</p>
+        <p class="case-sub">A deep-dive into Microsoft's 18 Guidelines for Human–AI Interaction (Amershi et al., 2019) — and what they mean for today's SaaS products.</p>
         <p class="case-body">
-          AI is not a magic feature — it's a new UX material that requires its own set of rules. In this deep dive I analysed how probabilistic AI systems break classic usability principles, and how product teams can design for error tolerance, latency trade-offs and user expectation management.
+          For a university seminar I examined this landmark study in depth and presented its implications. My takeaway: AI is not a magic feature — it's a new UX material with its own rules. Probabilistic systems break classic usability principles, forcing product teams to design for error tolerance, latency trade-offs and user expectation management. It's the research that shaped how I think about AI products.
         </p>
         <div class="tags">
-          <span class="tag">System Architecture</span>
           <span class="tag">UX Research</span>
-          <span class="tag">AI Product Design</span>
+          <span class="tag">Human–AI Interaction</span>
+          <span class="tag">Presentation</span>
         </div>
       </div>
 
       <!-- Slide placeholder mimicking a presentation deck -->
-      <figure class="slide" aria-label="Case study slide preview">
+      <figure class="slide" aria-label="Presentation slide preview">
         <div class="slide-head">
-          <span>Case Study · 01</span>
+          <span>Seminar Deep-Dive</span>
           <span>2025</span>
         </div>
         <div>
@@ -1389,18 +1426,6 @@
 
       <article class="journey-item">
         <div class="journey-time">
-          2025 – Present
-          <small>Currently</small>
-        </div>
-        <div>
-          <p class="journey-org">TH Ingolstadt</p>
-          <h3 class="journey-role">UX Design Studies</h3>
-          <p class="journey-desc">Focus on Information Psychology and System Architecture — building the conceptual foundation for designing complex, data-driven software products.</p>
-        </div>
-      </article>
-
-      <article class="journey-item">
-        <div class="journey-time">
           2027
           <small>Upcoming</small>
         </div>
@@ -1413,13 +1438,49 @@
 
       <article class="journey-item">
         <div class="journey-time">
-          Previously
-          <small>Foundation</small>
+          2025 – Present
+          <small>Currently</small>
         </div>
         <div>
-          <p class="journey-org">Operations &amp; Process Design</p>
-          <h3 class="journey-role">Process &amp; Operations Lead</h3>
-          <p class="journey-desc">Optimised workflows, reduced bottlenecks and aligned cross-functional teams in operational management — where I learned that the best product strategy is worthless without a process that can deliver it.</p>
+          <p class="journey-org">TH Ingolstadt</p>
+          <h3 class="journey-role">UX Design Studies</h3>
+          <p class="journey-desc">Focus on Information Psychology and System Architecture — building the conceptual foundation for designing complex, data-driven software products.</p>
+        </div>
+      </article>
+
+      <article class="journey-item">
+        <div class="journey-time">
+          2025 – Present
+          <small>Founder · Active</small>
+        </div>
+        <div>
+          <p class="journey-org">Tutoring Matching Service</p>
+          <h3 class="journey-role">Founder &amp; Operator</h3>
+          <p class="journey-desc">Built and run a service that matches students with the right tutors. I manage relationships between parents and tutors, resolve conflicts, and keep the matching process running smoothly — hands-on stakeholder management, every week.</p>
+        </div>
+      </article>
+
+      <article class="journey-item">
+        <div class="journey-time">
+          2021 – 2025
+          <small>5 Years</small>
+        </div>
+        <div>
+          <p class="journey-org">Online Coaching Business</p>
+          <h3 class="journey-role">Coach &amp; Content Creator</h3>
+          <p class="journey-desc">Ran an online coaching business where I broke down complex topics into clear, structured material and adapted content to each client's pace — the experience that taught me how to meet people where they are.</p>
+        </div>
+      </article>
+
+      <article class="journey-item">
+        <div class="journey-time">
+          2019 – 2021
+          <small>Founder</small>
+        </div>
+        <div>
+          <p class="journey-org">Porta Weisbäcker GmbH · E-Commerce</p>
+          <h3 class="journey-role">Founder &amp; Operator</h3>
+          <p class="journey-desc">Founded and scaled a worldwide e-commerce brand to six-figure revenue — starting as a sole proprietorship and incorporating as a GmbH to manage risk. Built the Shopify store myself, ran all paid advertising (Meta &amp; Google Ads), and handled operations end-to-end before outsourcing support once I had templated every recurring case.</p>
         </div>
       </article>
 

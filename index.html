@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>David Weisbäcker — Product Management · Process Design · UX</title>
-<meta name="description" content="Aspiring Product Manager bridging user needs and scalable system architecture. Background in business operations and UX design, specializing in Human–AI Interaction and B2B SaaS.">
+<meta name="description" content="Aspiring Product Manager bridging user needs and scalable system architecture. Self-employed since 2018, now studying UX Design at THI with a focus on Human–AI Interaction.">
 <meta name="theme-color" content="#0a0a0b">
 
 <!-- Open Graph / social preview (LinkedIn, WhatsApp, etc.) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://davidweisbaecker.github.io/portfolio/">
 <meta property="og:title" content="David Weisbäcker — Aspiring Product Manager">
-<meta property="og:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · B2B SaaS.">
+<meta property="og:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · Self-employed since 2018.">
 <meta property="og:image" content="https://davidweisbaecker.github.io/portfolio/preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="David Weisbäcker — Aspiring Product Manager">
-<meta name="twitter:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · B2B SaaS.">
+<meta name="twitter:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · Self-employed since 2018.">
 <meta name="twitter:image" content="https://davidweisbaecker.github.io/portfolio/preview.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjYTNlNjM1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3MCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBhMGEwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkQ8L3RleHQ+PC9zdmc+">
 
@@ -753,14 +753,14 @@
     transition: color .2s ease, border-color .2s ease;
   }
 
-  /* ---------- CASE STUDY ---------- */
+  /* ---------- CASE STUDIES (shared template) ---------- */
   .case {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2rem, 4vw, 3rem);
+    gap: clamp(2.5rem, 5vw, 4rem);
   }
   @media (min-width: 880px) {
-    .case { grid-template-columns: 1.1fr 1fr; align-items: center; }
+    .case { grid-template-columns: 1.1fr 1fr; align-items: start; }
   }
   .case h2.display .accent { color: var(--accent); }
   .case-sub {
@@ -769,15 +769,22 @@
     font-weight: 400;
     font-size: 1.125rem;
     color: var(--fg);
-    margin: 1.25rem 0 1.5rem;
+    margin: 1.25rem 0 1.75rem;
     line-height: 1.55;
     max-width: 50ch;
   }
-  .case-body {
-    color: var(--fg-mute);
-    line-height: 1.75;
-    margin: 0 0 1.75rem;
-    max-width: 54ch;
+  /* The one line worth remembering from each case */
+  .case-takeaway {
+    margin: 0 0 2rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--accent);
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: var(--fg);
+    max-width: 34ch;
   }
   .tags {
     display: flex;
@@ -796,90 +803,259 @@
     transition: color .2s ease, border-color .2s ease;
   }
 
-  /* Slide visual */
-  .slide {
-    aspect-ratio: 4 / 3;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    padding: clamp(1.25rem, 2.5vw, 2rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  /* Numbered steps — only used where the content is a real sequence */
+  .case-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-  .slide::before {
-    content: "";
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 32px 32px;
-    pointer-events: none;
+  .case-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--border);
   }
-  .slide-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
+  .case-step:first-child { padding-top: .35rem; border-top: 0; }
+  .case-step:last-child { padding-bottom: 0; }
+  .case-step-num {
     font-family: var(--f-mono);
-    font-size: .65rem;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--fg-dim);
-    position: relative;
-    z-index: 1;
+    font-size: .85rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--accent);
+    line-height: 1.5;
+    transition: text-shadow .3s ease;
   }
-  .slide-head span:first-child { color: var(--accent); }
-  .slide-title {
+  .case-step-title {
     font-family: var(--f-display);
     font-weight: 600;
-    font-size: clamp(1.1rem, 2.4vw, 1.55rem);
-    line-height: 1.18;
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
     color: var(--fg);
-    letter-spacing: -0.03em;
-    max-width: 22ch;
+    margin: 0 0 .5rem;
+    transition: color .3s ease, text-shadow .3s ease;
+  }
+  .case-step p {
     margin: 0;
-    position: relative;
-    z-index: 1;
+    color: var(--fg-mute);
+    font-size: .98rem;
+    line-height: 1.65;
+    max-width: 52ch;
   }
-  .slide-title em {
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 600;
+
+  /* ---------- HOURS CHART — by hand vs. with AI ---------- */
+  .hours {
+    margin: clamp(3rem, 7vw, 5rem) 0 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
   }
-  .slide-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 6px;
-    margin-block: 1rem;
-    position: relative;
-    z-index: 1;
-  }
-  .slide-grid > i {
-    aspect-ratio: 1;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    display: block;
-  }
-  .slide-grid > i.lit {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 14px var(--accent-glow);
-  }
-  .slide-foot {
+  .hours-head {
     display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
     justify-content: space-between;
+    gap: .75rem 2rem;
+    margin-bottom: 1.75rem;
+  }
+  .hours-title {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .hours-legend {
+    display: flex;
+    gap: 1.5rem;
+    font-family: var(--f-mono);
+    font-size: .68rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+  }
+  .hours-legend span { display: inline-flex; align-items: center; gap: .55rem; }
+  .hours-legend span::before { content: ""; width: 10px; height: 10px; }
+  .hours-legend .key-hand::before { background: var(--fg-dim); }
+  .hours-legend .key-ai::before { background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+  .hours-rows { margin: 0; display: grid; gap: 1.4rem; }
+  .hours-row { display: grid; grid-template-columns: 1fr; gap: .55rem; }
+  @media (min-width: 720px) {
+    .hours-row { grid-template-columns: 11rem 1fr; align-items: center; gap: 1.5rem; }
+  }
+  .hours-row dt {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--fg);
+  }
+  .hours-row dd { margin: 0; display: grid; gap: .45rem; }
+  /* Solid part = lower bound, soft part = upper bound of the range */
+  .hbar {
+    --c: var(--fg-dim);
+    --c-soft: rgba(113, 113, 122, 0.35);
+    display: flex;
     align-items: center;
+    gap: .75rem;
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    letter-spacing: .08em;
+    color: var(--fg-mute);
+    white-space: nowrap;
+  }
+  .hbar--ai {
+    --c: var(--accent);
+    --c-soft: rgba(163, 230, 53, 0.35);
+    color: var(--accent);
+  }
+  .hbar i {
+    display: block;
+    flex: 0 0 auto;
+    height: 10px;
+    width: calc(var(--to) / 50 * (100% - 8.5rem)); /* reserve room for the label */
+    background: linear-gradient(to right,
+      var(--c) calc(var(--from) / var(--to) * 100%),
+      var(--c-soft) calc(var(--from) / var(--to) * 100%));
+  }
+  .hours-note {
+    margin: 1.5rem 0 0;
+    font-size: .88rem;
+    line-height: 1.6;
+    color: var(--fg-dim);
+    max-width: 62ch;
+  }
+
+  /* ---------- SLIDE DECK VIEWER ----------
+     Real slides / figures. Stacked images cross-fade; buttons, arrow keys
+     and horizontal swipe move through them. */
+  .deck { margin: clamp(3rem, 7vw, 5rem) 0 0; }
+  .deck-frame {
+    position: relative;
+    padding: clamp(.5rem, 1.4vw, 1rem);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+  }
+  .section--cream .deck-frame { background: var(--bg); }
+  /* Lime corner brackets — same device as the hero portrait: marks real work */
+  .deck-frame::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background-image:
+      linear-gradient(to right, var(--accent), var(--accent)),
+      linear-gradient(to bottom, var(--accent), var(--accent)),
+      linear-gradient(to left, var(--accent), var(--accent)),
+      linear-gradient(to top, var(--accent), var(--accent));
+    background-size: 28px 1px, 1px 28px, 28px 1px, 1px 28px;
+    background-position: top left, top left, bottom right, bottom right;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: .8;
+  }
+  .deck-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-elev);
+    overflow: hidden;
+    touch-action: pan-y pinch-zoom;
+  }
+  .deck-stage:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  .deck-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .deck-slide.is-current { opacity: 1; }
+  .deck-progress {
+    height: 2px;
+    margin-top: .9rem;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .deck-progress > span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform .35s ease;
+  }
+  .deck-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: .75rem 1.25rem;
+    margin-top: 1rem;
+  }
+  .deck-nav { display: flex; gap: .5rem; }
+  .deck-btn {
+    width: 44px;
+    height: 44px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--border-mid);
+    border-radius: 2px;
+    transition: color .2s ease, border-color .2s ease, opacity .2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .deck-btn svg { width: 16px; height: 16px; }
+  .deck-btn:disabled { opacity: .3; cursor: default; }
+  .deck-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .deck-caption {
+    margin: 0;
+    color: var(--fg);
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .deck-count {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    color: var(--fg-dim);
+    white-space: nowrap;
+  }
+  .deck-count b { color: var(--accent); font-weight: 500; }
+  .deck-note {
+    margin: .9rem 0 0;
     font-family: var(--f-mono);
     font-size: .65rem;
-    letter-spacing: .22em;
+    letter-spacing: .2em;
     text-transform: uppercase;
     color: var(--fg-dim);
-    position: relative;
-    z-index: 1;
   }
-  .slide-foot .pg { color: var(--accent); }
+  @media (max-width: 599px) {
+    .deck-bar { grid-template-columns: auto 1fr; }
+    .deck-count { justify-self: end; }
+    .deck-caption { grid-column: 1 / -1; grid-row: 2; }
+  }
+
+  /* Screen-reader-only text (chart units, etc.) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 
   /* ---------- JOURNEY ---------- */
   .journey {
@@ -983,7 +1159,7 @@
   .cta-link svg { flex-shrink: 0; }
 
   .footer {
-    background: var(--bg);
+    background: var(--bg-alt);
     color: var(--fg-dim);
     padding: 3rem var(--gutter);
     text-align: center;
@@ -1045,6 +1221,12 @@
     .trait {
       transition: color .55s ease, border-color .55s ease;
     }
+    .case-step-title {
+      transition: color .55s ease, text-shadow .55s ease;
+    }
+    .case-step-num {
+      transition: text-shadow .55s ease;
+    }
 
     .journey-item.is-active .journey-role {
       color: var(--accent);
@@ -1075,6 +1257,14 @@
     .trait.is-active {
       color: var(--accent);
       border-color: var(--accent);
+    }
+    /* Case-study steps activate individually */
+    .case-step.is-active .case-step-title {
+      color: var(--accent);
+      text-shadow: 0 0 24px var(--accent-glow);
+    }
+    .case-step.is-active .case-step-num {
+      text-shadow: 0 0 18px var(--accent-glow);
     }
   }
 
@@ -1131,6 +1321,18 @@
 
     .trait:hover { color: var(--accent); border-color: var(--accent); }
 
+    .case-step:hover .case-step-title {
+      color: var(--accent);
+      text-shadow: 0 0 24px var(--accent-glow);
+    }
+    .case-step:hover .case-step-num {
+      text-shadow: 0 0 18px var(--accent-glow);
+    }
+    .deck-btn:not(:disabled):hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
     .cta-link:hover {
       border-color: var(--accent);
       color: var(--accent);
@@ -1166,6 +1368,10 @@
       transform: none;
     }
     .footer .avail::before { animation: none; }
+    .deck-slide,
+    .deck-progress > span {
+      transition: none !important;
+    }
   }
 
   /* Selection */
@@ -1189,7 +1395,7 @@
       <a href="#about">About</a>
       <a href="#toolkit">Toolkit</a>
       <a href="#how-i-work">How I Work</a>
-      <a href="#case-study">Case Study</a>
+      <a href="#case-study">Case Studies</a>
       <a href="#journey">Journey</a>
     </nav>
 
@@ -1245,7 +1451,7 @@
     <a href="#about"><span class="mobile-menu-num">01</span> About</a>
     <a href="#toolkit"><span class="mobile-menu-num">02</span> Toolkit</a>
     <a href="#how-i-work"><span class="mobile-menu-num">03</span> How I Work</a>
-    <a href="#case-study"><span class="mobile-menu-num">04</span> Case Study</a>
+    <a href="#case-study"><span class="mobile-menu-num">04</span> Case Studies</a>
     <a href="#journey"><span class="mobile-menu-num">05</span> Journey</a>
   </nav>
   <div class="mobile-menu-footer">
@@ -1265,8 +1471,8 @@
         From operational bottlenecks to <em>strategic product decisions</em>
       </h2>
       <div class="lede">
-        <p>Great products fail if the underlying processes don't scale. Before diving deep into UX Design and Product Management, I managed operational workflows and process design. That taught me a critical lesson: a seamless user interface is useless without a robust, scalable system architecture behind it.</p>
-        <p>Today, I translate complex business logic and user research into clear engineering requirements — making sure teams build the right features at the right time, with measurable outcomes.</p>
+        <p>Great products fail if the underlying processes don't scale. I've been self-employed since 2018 — I grew an e-commerce brand into its own GmbH, ran a coaching business and still run a tutoring business today. Doing all of it end-to-end taught me a critical lesson: a seamless interface is useless without a robust, scalable system behind it.</p>
+        <p>Now I'm studying UX Design at THI to add the other half: research, interaction design and AI. The goal is product management — turning user needs and business logic into clear decisions a team can build on.</p>
       </div>
     </div>
 
@@ -1277,8 +1483,8 @@
         <div class="stat-lbl">Design<br>Focus</div>
       </div>
       <div class="stat">
-        <div class="stat-num">B2B</div>
-        <div class="stat-lbl">SaaS<br>Specialisation</div>
+        <div class="stat-num">Founder</div>
+        <div class="stat-lbl">Since<br>2018</div>
       </div>
       <div class="stat">
         <div class="stat-num">AI</div>
@@ -1303,7 +1509,7 @@
       <article class="toolcard">
         <div class="toolcard-num">01 / Strategy</div>
         <h3>Product Strategy &amp; Discovery</h3>
-        <p>Translating market research and user pain points into actionable roadmaps grounded in evidence — not opinion.</p>
+        <p>Turning market research and user pain points into clear priorities — grounded in evidence, not opinion.</p>
       </article>
 
       <article class="toolcard">
@@ -1315,13 +1521,13 @@
       <article class="toolcard">
         <div class="toolcard-num">03 / AI</div>
         <h3>Human–AI Interaction</h3>
-        <p>Designing intuitive interfaces for probabilistic systems and machine learning models, with error tolerance built in.</p>
+        <p>Knowing where AI helps and where it breaks — from the 18 guidelines for Human–AI Interaction to my own measured experiments with AI design tools.</p>
       </article>
 
       <article class="toolcard">
         <div class="toolcard-num">04 / Insight</div>
         <h3>Data &amp; Analytics</h3>
-        <p>Leveraging business analytics to drive product decisions and to argue, defensibly, for what to build next.</p>
+        <p>Working with real usage data — like 21 million rows from a campus app, analysed with Python and Pandas — and turning it into insights people get at a glance.</p>
       </article>
     </div>
   </div>
@@ -1372,7 +1578,7 @@
 
     <!-- Collaboration proof + traits -->
     <p class="principle-proof">
-      Today I run a tutoring-matching business — managing relationships between parents and tutors, resolving conflicts and pairing the right teachers with the right students. Stakeholder management isn't theory for me; it's what I do every week.
+      Today I run my own tutoring business — and since 2026 I also match students with other tutors: managing relationships between parents and tutors, resolving conflicts and pairing the right teachers with the right students. Stakeholder management isn't theory for me; it's what I do every week.
     </p>
     <div class="traits">
       <span class="trait">Leads with confidence</span>
@@ -1384,8 +1590,126 @@
 </section>
 
 
-<!-- =========== CASE STUDY =========== -->
+<!-- =========== CASE STUDY 01 · NEULAND NEXT =========== -->
 <section class="section section--dark" id="case-study">
+  <div class="wrap">
+    <span class="eyebrow">Design Experiment</span>
+
+    <div class="case">
+      <div>
+        <h2 class="display">
+          From maker to <span class="accent">curator</span>
+        </h2>
+        <p class="case-sub">For my Gestaltung II course I worked on Neuland Next — the student-built app used across THI. Icons and screens I designed twice, fully by hand and fully with AI. For the data poster I picked the method myself, based on what the first two had shown.</p>
+        <p class="case-takeaway">AI delivers the structure in a fraction of the time. Consistency and quality still come from the designer — the future is hybrid.</p>
+        <div class="tags">
+          <span class="tag">AI vs. Manual</span>
+          <span class="tag">UI &amp; Icon Design</span>
+          <span class="tag">Data Visualisation</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">Icon set</h3>
+            <p>Eleven app icons, twice: vectorised by hand in Illustrator (neumorphic) and generated with Gemini (skeuomorphic). AI cut the time to about a fifth — but it generates far better than it fine-tunes. Often a fresh prompt beats forcing a small detail.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">Screens</h3>
+            <p>Four app screens: built component by component in Figma, then generated with Gemini and refined in Photoshop. Screen by screen, the AI lost the visual thread — asking for all four in one single image forced consistency. That workaround was the breakthrough.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">Data poster</h3>
+            <p>Here the method was my call — and the first two experiments made it: AI. I analysed 21.2 million rows of app data with Python and Pandas, had Claude write the layout as SVG code and finished it print-ready in Illustrator. The finding: 14,266 timetable checks between 2 and 4 a.m.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <figure class="hours" aria-labelledby="hours-title">
+      <figcaption class="hours-head">
+        <h3 class="hours-title" id="hours-title">Hours per part</h3>
+        <div class="hours-legend" aria-hidden="true">
+          <span class="key-hand">By hand</span>
+          <span class="key-ai">With AI</span>
+        </div>
+      </figcaption>
+      <dl class="hours-rows">
+        <div class="hours-row">
+          <dt>Icon set</dt>
+          <dd>
+            <div class="hbar hbar--hand" style="--from:30;--to:35"><i></i><span><span class="sr-only">By hand: </span>30–35 h</span></div>
+            <div class="hbar hbar--ai" style="--from:5;--to:7"><i></i><span><span class="sr-only">With AI: </span>5–7 h</span></div>
+          </dd>
+        </div>
+        <div class="hours-row">
+          <dt>Screens</dt>
+          <dd>
+            <div class="hbar hbar--hand" style="--from:25;--to:25"><i></i><span><span class="sr-only">By hand: </span>25 h</span></div>
+            <div class="hbar hbar--ai" style="--from:10;--to:10"><i></i><span><span class="sr-only">With AI: </span>10 h</span></div>
+          </dd>
+        </div>
+        <div class="hours-row">
+          <dt>Data poster</dt>
+          <dd>
+            <div class="hbar hbar--hand" style="--from:30;--to:50"><i></i><span><span class="sr-only">By hand: </span>30–50 h · est.</span></div>
+            <div class="hbar hbar--ai" style="--from:10;--to:10"><i></i><span><span class="sr-only">With AI: </span>10 h</span></div>
+          </dd>
+        </div>
+        <div class="hours-row">
+          <dt>Documentation</dt>
+          <dd>
+            <div class="hbar hbar--hand" style="--from:30;--to:50"><i></i><span><span class="sr-only">By hand: </span>30–50 h · est.</span></div>
+            <div class="hbar hbar--ai" style="--from:20;--to:25"><i></i><span><span class="sr-only">With AI: </span>20–25 h</span></div>
+          </dd>
+        </div>
+      </dl>
+      <p class="hours-note">The poster and the documentation were only built with AI — their by-hand hours are my own estimates. Icons and screens were really done both ways.</p>
+    </figure>
+
+    <figure class="deck" data-deck role="region" aria-roledescription="carousel" aria-label="Figures from the Neuland Next project">
+      <div class="deck-frame">
+        <div class="deck-stage" tabindex="0" role="group" aria-label="Slide viewer — use the left and right arrow keys to browse">
+          <img class="deck-slide is-current" src="assets/neuland-icons.webp" alt="Comparison of the Neuland Next app icons: the original flat icons, hand-drawn neumorphic versions, and hyperrealistic skeuomorphic versions generated with AI." data-caption="Icon set: the original (left), my hand-made neumorphic set (middle), the AI set (right)" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/neuland-home-compare.webp" alt="Three versions of the Neuland Next home screen side by side: the original app, a redesign built by hand in Figma, and an AI-generated skeuomorphic version in brown leather." data-caption="Home screen: the original, my Figma rebuild, the AI version" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/neuland-figma-screens.webp" alt="Three app screens redesigned by hand in Figma: the canteen menu, the profile page and the timetable settings." data-caption="My Figma rebuild: canteen menu, profile and timetable settings" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/neuland-data.webp" alt="Screenshot of the Data Wrangler in Visual Studio Code showing the Neuland Next dataset with 21,242,446 rows and 20 columns." data-caption="The data: 21.2 million rows of app events, explored in VS Code’s Data Wrangler" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/neuland-poster-iterations.webp" alt="Three poster drafts: the first with an angular curve, the second with a rounded curve, the third in the final radar-clock layout." data-caption="Poster iterations: from an angular curve to the radar clock" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/neuland-posters-final.webp" alt="The two final posters asking how often students check their timetable at 3 a.m., answered with the number 14,266 — one in blue, one in green." data-caption="Final posters in two colourways — blue, and green in Neuland’s brand colours" width="1600" height="900" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="deck-progress" aria-hidden="true"><span></span></div>
+      <figcaption>
+        <div class="deck-bar">
+          <div class="deck-nav">
+            <button type="button" class="deck-btn" data-deck-prev aria-label="Previous slide" disabled>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+            </button>
+            <button type="button" class="deck-btn" data-deck-next aria-label="Next slide">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+            </button>
+          </div>
+          <p class="deck-caption" aria-live="polite">Icon set: the original (left), my hand-made neumorphic set (middle), the AI set (right)</p>
+          <span class="deck-count"><b class="deck-current">01</b> / 06</span>
+        </div>
+        <p class="deck-note">Figures from my 38-page project documentation · labels in German</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- =========== CASE STUDY 02 · HUMAN–AI RESEARCH =========== -->
+<section class="section section--cream" id="research">
   <div class="wrap">
     <span class="eyebrow">Research Deep-Dive</span>
 
@@ -1394,62 +1718,81 @@
         <h2 class="display">
           Designing for the <span class="accent">unpredictable</span>
         </h2>
-        <p class="case-sub">A deep-dive into Microsoft's 18 Guidelines for Human–AI Interaction (Amershi et al., 2019) — and what they mean for today's SaaS products.</p>
-        <p class="case-body">
-          For a university seminar I examined this landmark study in depth and presented its implications. My takeaway: AI is not a magic feature — it's a new UX material with its own rules. Probabilistic systems break classic usability principles, forcing product teams to design for error tolerance, latency trade-offs and user expectation management. It's the research that shaped how I think about AI products.
-        </p>
+        <p class="case-sub">A seminar talk on the 18 Guidelines for Human–AI Interaction (Amershi et al., Microsoft Research, CHI 2019) — extended into how we instruct AI today.</p>
+        <p class="case-takeaway">Good AI design isn't about more AI — it's about giving people clarity, correction and control.</p>
         <div class="tags">
-          <span class="tag">UX Research</span>
           <span class="tag">Human–AI Interaction</span>
-          <span class="tag">Presentation</span>
+          <span class="tag">UX Research</span>
+          <span class="tag">AI Guardrails</span>
+          <span class="tag">Workshop Design</span>
         </div>
       </div>
 
-      <!-- Slide placeholder mimicking a presentation deck -->
-      <figure class="slide" aria-label="Presentation slide preview">
-        <div class="slide-head">
-          <span>Seminar Deep-Dive</span>
-          <span>2025</span>
-        </div>
-        <div>
-          <p class="slide-title">
-            18 guidelines for the <em>probabilistic</em> interface.
-          </p>
-          <div class="slide-grid" aria-hidden="true">
-            <i></i><i class="lit"></i><i></i><i></i><i class="lit"></i><i></i>
-            <i></i><i></i><i class="lit"></i><i></i><i></i><i></i>
-            <i class="lit"></i><i></i><i></i><i></i><i class="lit"></i><i></i>
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">The paper</h3>
+            <p>Why AI breaks classic usability: it's unpredictable, makes mistakes and acts in the background — so trust erodes. The authors condensed 150+ recommendations into 18 guidelines and tested them with 49 HCI practitioners on 20 AI products.</p>
           </div>
-        </div>
-        <div class="slide-foot">
-          <span>Human–AI Interaction</span>
-          <span class="pg">01 / 18</span>
-        </div>
-      </figure>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">My extension</h3>
+            <p>The paper defines how AI should behave — not how to write that down. My discussion carries it into today's practice, where guidelines like G1, G6 and G11 end up in markdown system prompts, and shows where those instructions break: a single role-play reframing bypasses a robot's safety rules.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">The workshop</h3>
+            <p>The talk ends hands-on: in four groups, the audience drafts the rule file for an AI that reads X-rays — its limits, how it signals confidence and explains itself, how it avoids bias, when it hands over to a doctor, and how it treats health data.</p>
+          </div>
+        </li>
+      </ol>
     </div>
+
+    <figure class="deck" data-deck role="region" aria-roledescription="carousel" aria-label="Slides from the seminar talk">
+      <div class="deck-frame">
+        <div class="deck-stage" tabindex="0" role="group" aria-label="Slide viewer — use the left and right arrow keys to browse">
+          <img class="deck-slide is-current" src="assets/talk-01.webp" alt="Title slide: Guidelines for Human-AI Interaction — 18 guidelines for designing understandable and trustworthy AI systems (Amershi, Weld, Vorvoreanu et al., CHI 2019). Talk by David Weisbäcker, UX Design, THI." data-caption="Title: Guidelines for Human–AI Interaction" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-02.webp" alt="Slide: why AI needs its own design rules — it is unpredictable, makes mistakes, acts in the background, and users lose trust." data-caption="The problem: why AI needs its own design rules" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-03.webp" alt="Slide: the 18 guidelines grouped by when they apply — at the start, during use, when something goes wrong, and over time." data-caption="The framework: 18 guidelines, ordered by when they apply" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-04.webp" alt="Slide: study findings — 785 identified examples; explainability is a gap, diverse evaluators matter, some guidelines are hard to observe, voice and sensor products fit worse." data-caption="Findings: 785 examples — explainability is the biggest gap" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-05.webp" alt="Slide: from guidelines to instructions — markdown files used as system prompts that set an AI’s role, tasks and limits, with example use cases." data-caption="Discussion I: from guidelines to system-prompt instructions" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-06.webp" alt="Slide: when the instruction fails — a ChatGPT-controlled robot refuses to fire until a role-play reframing bypasses its safety rules." data-caption="Discussion II: when the instruction fails" width="1600" height="900" loading="lazy" decoding="async">
+          <img class="deck-slide" aria-hidden="true" src="assets/talk-07.webp" alt="Slide: workshop task — in groups, write a markdown rule file for an AI that reads X-rays, covering capabilities, uncertainty, bias, escalation, explainability and data privacy." data-caption="Workshop: write the rule file for an X-ray AI" width="1600" height="900" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="deck-progress" aria-hidden="true"><span></span></div>
+      <figcaption>
+        <div class="deck-bar">
+          <div class="deck-nav">
+            <button type="button" class="deck-btn" data-deck-prev aria-label="Previous slide" disabled>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+            </button>
+            <button type="button" class="deck-btn" data-deck-next aria-label="Next slide">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+            </button>
+          </div>
+          <p class="deck-caption" aria-live="polite">Title: Guidelines for Human–AI Interaction</p>
+          <span class="deck-count"><b class="deck-current">01</b> / 07</span>
+        </div>
+        <p class="deck-note">Slides in German · 7 of 13 shown</p>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 
 <!-- =========== JOURNEY =========== -->
-<section class="section section--cream" id="journey">
+<section class="section section--dark" id="journey">
   <div class="wrap">
     <span class="eyebrow">Experience &amp; Education</span>
     <h2 class="display" style="color: var(--fg)">My <em>journey</em></h2>
 
     <div class="journey">
-
-      <article class="journey-item">
-        <div class="journey-time">
-          2027
-          <small>Upcoming</small>
-        </div>
-        <div>
-          <p class="journey-org">Universitat Politècnica de València (UPV) · Spain</p>
-          <h3 class="journey-role">Semester Abroad</h3>
-          <p class="journey-desc">Specialising in Business Analytics, Strategic Design and the Digital Economy — adding an international, business-strategic lens to the product practice.</p>
-        </div>
-      </article>
 
       <article class="journey-item">
         <div class="journey-time">
@@ -1465,37 +1808,37 @@
 
       <article class="journey-item">
         <div class="journey-time">
-          2025 – Present
-          <small>Founder · Active</small>
+          2021 – Present
+          <small>Active</small>
         </div>
         <div>
-          <p class="journey-org">Tutoring Matching Service</p>
-          <h3 class="journey-role">Founder &amp; Operator</h3>
-          <p class="journey-desc">Built and run a service that matches students with the right tutors. I manage relationships between parents and tutors, resolve conflicts, and keep the matching process running smoothly — hands-on stakeholder management, every week.</p>
+          <p class="journey-org">Self-employed · Maths, grades 5–13</p>
+          <h3 class="journey-role">Tutoring &amp; Tutor Matching</h3>
+          <p class="journey-desc">My own tutoring business since 2021: 1:1 maths for grades 5–13, sold as weekly packages and marketed myself. Since 2026 I also match incoming requests with other tutors — constant stakeholder work between parents, students and tutors.</p>
         </div>
       </article>
 
       <article class="journey-item">
         <div class="journey-time">
           2021 – 2025
-          <small>5 Years</small>
+          <small>Self-employed</small>
         </div>
         <div>
           <p class="journey-org">Online Coaching Business</p>
           <h3 class="journey-role">Coach &amp; Content Creator</h3>
-          <p class="journey-desc">Ran an online coaching business where I broke down complex topics into clear, structured material and adapted content to each client's pace — the experience that taught me how to meet people where they are.</p>
+          <p class="journey-desc">1:1 coaching on finding your calling, handling emotions and building confidence — and occasionally mentoring clients who were building their own coaching business. It taught me to break complex topics into clear steps and to meet people where they are.</p>
         </div>
       </article>
 
       <article class="journey-item">
         <div class="journey-time">
-          2019 – 2021
+          2018 – 2025
           <small>Founder</small>
         </div>
         <div>
           <p class="journey-org">Porta Weisbäcker GmbH · E-Commerce</p>
           <h3 class="journey-role">Founder &amp; Operator</h3>
-          <p class="journey-desc">Founded and scaled a worldwide e-commerce brand to six-figure revenue — starting as a sole proprietorship and incorporating as a GmbH to manage risk. Built the Shopify store myself, ran all paid advertising (Meta &amp; Google Ads), and handled operations end-to-end before outsourcing support once I had templated every recurring case.</p>
+          <p class="journey-desc">Founded and scaled a worldwide e-commerce brand to six-figure revenue — starting as a sole proprietorship in 2018 and incorporating as a GmbH in 2020 to manage risk. Built the Shopify store myself, ran all paid advertising (Meta &amp; Google Ads), and handled operations end-to-end before outsourcing support once I had templated every recurring case.</p>
         </div>
       </article>
 
@@ -1505,14 +1848,14 @@
 
 
 <!-- =========== CTA =========== -->
-<section class="section section--dark cta" id="contact">
+<section class="section section--cream cta" id="contact">
   <div class="wrap">
     <span class="eyebrow eyebrow--solo">Get in touch</span>
     <h2 class="display">
       Let's build something <em>scalable</em>.
     </h2>
     <p class="cta-text">
-      Currently looking for an opportunity to bring operational rigor and a product mindset to a driven team as a <strong>Junior Product Manager</strong>.
+      Currently looking for an <strong>internship or working-student role</strong> in product or UX — to bring operational rigor and a product mindset to a driven team.
     </p>
 
     <div class="cta-links">
@@ -1531,9 +1874,9 @@
 
 <!-- =========== FOOTER =========== -->
 <footer class="footer">
-  © 2025 David Weisbäcker · Product Management · UX Design
+  © 2026 David Weisbäcker · Product Management · UX Design
   <br>
-  <span class="avail">Available for Junior PM roles</span>
+  <span class="avail">Open to internships &amp; working-student roles</span>
 </footer>
 
 
@@ -1615,6 +1958,82 @@
     });
   });
 
+  /* ---------- Slide deck viewer ----------
+     Buttons, arrow keys (Left/Right/Home/End) and single-finger
+     horizontal swipes move through the stacked images. Pinch-zoom
+     stays native: multi-touch gestures are ignored. Works for any
+     number of decks on the page. */
+  document.querySelectorAll('[data-deck]').forEach(function (deck) {
+    const slides  = Array.prototype.slice.call(deck.querySelectorAll('.deck-slide'));
+    if (!slides.length) return;
+    const stage   = deck.querySelector('.deck-stage');
+    const prevBtn = deck.querySelector('[data-deck-prev]');
+    const nextBtn = deck.querySelector('[data-deck-next]');
+    const caption = deck.querySelector('.deck-caption');
+    const counter = deck.querySelector('.deck-current');
+    const bar     = deck.querySelector('.deck-progress > span');
+    let index = 0;
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function show(i) {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach(function (s, k) {
+        const on = k === index;
+        s.classList.toggle('is-current', on);
+        if (on) s.removeAttribute('aria-hidden');
+        else s.setAttribute('aria-hidden', 'true');
+      });
+      if (caption) caption.textContent = slides[index].getAttribute('data-caption') || '';
+      if (counter) counter.textContent = pad(index + 1);
+      if (bar) bar.style.transform = 'scaleX(' + ((index + 1) / slides.length) + ')';
+      const atStart = index === 0;
+      const atEnd   = index === slides.length - 1;
+      // Keep keyboard focus alive when the focused button becomes disabled
+      if (atStart && document.activeElement === prevBtn && nextBtn) nextBtn.focus();
+      if (atEnd && document.activeElement === nextBtn && prevBtn) prevBtn.focus();
+      if (prevBtn) prevBtn.disabled = atStart;
+      if (nextBtn) nextBtn.disabled = atEnd;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { show(index - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { show(index + 1); });
+
+    deck.addEventListener('keydown', function (e) {
+      let handled = true;
+      if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+      else if (e.key === 'Home') show(0);
+      else if (e.key === 'End') show(slides.length - 1);
+      else handled = false;
+      if (handled) e.preventDefault();
+    });
+
+    if (stage) {
+      let startX = null, startY = null;
+      stage.addEventListener('touchstart', function (e) {
+        if (e.touches.length !== 1) { startX = null; return; }
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener('touchmove', function (e) {
+        if (e.touches.length > 1) startX = null; // pinch — leave it to the browser
+      }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        const t  = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        startX = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          show(index + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    }
+
+    show(0);
+  });
+
   /* ---------- Scroll-spy active state ----------
      Targets are organised as "groups" — each group activates as a single
      unit, even if it contains multiple DOM elements. This lets stat row
@@ -1631,7 +2050,7 @@
   const groups = [];
 
   // Individual targets — each journey-item, toolcard and principle is its own group
-  document.querySelectorAll('.journey-item, .toolcard, .principle').forEach(function (el) {
+  document.querySelectorAll('.journey-item, .toolcard, .principle, .case-step').forEach(function (el) {
     groups.push([el]);
   });
 

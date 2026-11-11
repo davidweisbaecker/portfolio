@@ -1325,6 +1325,13 @@
       color: var(--accent);
       text-shadow: 0 0 24px var(--accent-glow);
     }
+    /* "Connect on LinkedIn" in the hero gets an accent border */
+    .btn--linkedin {
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .55s ease, box-shadow .2s ease;
+    }
+    .btn--linkedin.is-active {
+      border-color: var(--accent);
+    }
     /* Contact buttons sit at the end of the page, below the band at the
        top. They light up while they are in the lower part of the screen:
        the e-mail button fills with the accent, LinkedIn gets its border. */
@@ -1841,7 +1848,7 @@
           <a class="btn btn--gold" href="#ecommerce">
             See my work <span class="arrow">→</span>
           </a>
-          <a class="btn btn--ghost-dark" href="https://www.linkedin.com/in/weisbaecker/" target="_blank" rel="noopener">
+          <a class="btn btn--ghost-dark btn--linkedin" href="https://www.linkedin.com/in/weisbaecker/" target="_blank" rel="noopener">
             Connect on LinkedIn
           </a>
         </div>
@@ -2889,9 +2896,10 @@
      ----------------------------------------------------------------- */
   const groups = [];
 
-  // Individual targets — each journey-item, toolcard, principle, case step
-  // and flow card (the steps joined by arrows) is its own group
-  document.querySelectorAll('.journey-item, .toolcard, .principle, .case-step, .flow-step').forEach(function (el) {
+  // Individual targets — each journey-item, toolcard, principle, case step,
+  // flow card (the steps joined by arrows) and the hero's LinkedIn button
+  // is its own group
+  document.querySelectorAll('.btn--linkedin, .journey-item, .toolcard, .principle, .case-step, .flow-step').forEach(function (el) {
     groups.push([el]);
   });
 

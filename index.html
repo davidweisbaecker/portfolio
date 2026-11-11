@@ -1318,10 +1318,11 @@
       text-shadow: 0 0 18px var(--accent-glow);
     }
     /* Flow cards (the steps joined by arrows): the arrows are white here.
-       Each arrow turns green while it sits between 10 % and 50 % of the
-       screen height, so it stays green until it reaches the top 10 %
-       (set in JS as .is-arrow-lit). (.flow-steps raises the specificity
-       over the base arrow rule further down.) */
+       One arrow per flow is green at a time: the uppermost one between
+       10 % and 35 % of the screen height. It stays green until it reaches
+       the top 10 %, then the next one takes over (set in JS as
+       .is-arrow-lit). (.flow-steps raises the specificity over the base
+       arrow rule further down.) */
     .flow-steps .flow-step:not(:last-child)::after {
       color: var(--fg);
       transition: color .55s ease, text-shadow .55s ease;
@@ -2976,14 +2977,23 @@
       // page they rest at about 50–65 % on phones, so they stay lit).
       const ctaCenter = ctaLinks ? groupCenter([ctaLinks]) : null;
 
-      // Flow arrows: each arrow sits in the gap below its card. It lights up
-      // as it passes 50 % of the screen height and only goes dark again in
-      // the top 10 %, so a green arrow stays green for a while.
+      // Flow arrows: each arrow sits in the gap below its card. One arrow per
+      // flow is lit: the uppermost one between 10 % and 35 % of the screen
+      // height. It stays lit until it reaches the top 10 %, then the next
+      // one below takes over, so there is never more than one green arrow.
+      const arrowTop = vh * 0.10;
+      const arrowBottom = vh * 0.35;
+      const litFlows = new Set();
       const arrowLit = flowArrows.map(function (step) {
         const next = step.nextElementSibling;
         const bottom = step.getBoundingClientRect().bottom;
         const y = next ? (bottom + next.getBoundingClientRect().top) / 2 : bottom;
-        return y >= topLine && y <= bottomLine;
+        // flowArrows runs top to bottom, so the first hit per flow is the uppermost
+        if (y >= arrowTop && y <= arrowBottom && !litFlows.has(step.parentNode)) {
+          litFlows.add(step.parentNode);
+          return true;
+        }
+        return false;
       });
 
       // WRITE PHASE: sync .is-active across every tracked element

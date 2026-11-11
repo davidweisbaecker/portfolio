@@ -2891,22 +2891,23 @@
      Targets are organised as "groups" — each group activates as a single
      unit, even if it contains multiple DOM elements. This lets stat row
      pairs and tag rows light up together while still treating journey
-     items and toolcards individually.
+     items, principles and case steps individually.
 
-     Group center = average Y center of all member elements. The band runs
-     from 10% to 50% of the screen height, and the lowest group in it
-     wins: a group lights up as soon as its center crosses the middle of
-     the screen (50%) and stays lit until the next group crosses it or it
-     leaves the top 10%. Exactly one group is active at a time.
+     The switch is measured at the part that changes colour (a title, a
+     stat label, a tag row, the button), not at the middle of the whole
+     item. So every highlight starts at the same height on the screen, no
+     matter how tall the item is: when that part's top edge crosses 40 % of
+     the screen height. It stays lit until the next group crosses that line
+     or it leaves the top 10 %. Exactly one group is active at a time.
 
      Implementation: passive scroll + resize listeners throttled via rAF,
      with read/compute/write phases batched to avoid layout thrashing.
      ----------------------------------------------------------------- */
   const groups = [];
 
-  // Individual targets — each journey-item, toolcard, principle, case step
-  // and the hero's LinkedIn button is its own group
-  document.querySelectorAll('.btn--linkedin, .journey-item, .toolcard, .principle, .case-step').forEach(function (el) {
+  // Individual targets — each journey item, principle, case step and the
+  // hero's LinkedIn button is its own group
+  document.querySelectorAll('.btn--linkedin, .journey-item, .principle, .case-step').forEach(function (el) {
     groups.push([el]);
   });
 
@@ -2921,12 +2922,6 @@
   document.querySelectorAll('.tags').forEach(function (container) {
     const tags = Array.prototype.slice.call(container.querySelectorAll('.tag'));
     if (tags.length) groups.push(tags);
-  });
-
-  // Trait row — all traits activate together as one group
-  document.querySelectorAll('.traits').forEach(function (container) {
-    const traits = Array.prototype.slice.call(container.querySelectorAll('.trait'));
-    if (traits.length) groups.push(traits);
   });
 
   // Flat list of every element that can receive .is-active (for cleanup)
@@ -2951,21 +2946,37 @@
       return sum / group.length;
     }
 
+    // The part of an item that changes colour when it is active
+    function litPart(el) {
+      return el.querySelector('.journey-role, .principle-title, .case-step-title, .stat-lbl') || el;
+    }
+
+    // Top edge of the highest lit part in a group (a wrapped tag row
+    // counts from its first line)
+    function groupLine(group) {
+      let top = Infinity;
+      group.forEach(function (el) {
+        const t = litPart(el).getBoundingClientRect().top;
+        if (t < top) top = t;
+      });
+      return top;
+    }
+
     function updateActive() {
       const vh = window.innerHeight;
-      const topLine    = vh * 0.10;
-      const bottomLine = vh * 0.50;
+      const topLine     = vh * 0.10;
+      const triggerLine = vh * 0.40;
 
-      // READ PHASE: collect centers for all groups
-      const centers = groups.map(groupCenter);
+      // READ PHASE: where the lit part of every group sits
+      const lines = groups.map(groupLine);
 
-      // COMPUTE PHASE: pick the single best group, the lowest one in the
-      // band (the one that crossed the middle of the screen last)
+      // COMPUTE PHASE: pick the single best group, the lowest one between
+      // the two lines (the one that crossed the trigger line last)
       let activeGroup = null;
       let lowest = -Infinity;
-      centers.forEach(function (c, idx) {
-        if (c >= topLine && c <= bottomLine && c > lowest) {
-          lowest = c;
+      lines.forEach(function (y, idx) {
+        if (y >= topLine && y <= triggerLine && y > lowest) {
+          lowest = y;
           activeGroup = groups[idx];
         }
       });

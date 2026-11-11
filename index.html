@@ -1317,13 +1317,17 @@
     .case-step.is-active .case-step-num {
       text-shadow: 0 0 18px var(--accent-glow);
     }
-    /* Flow cards (the steps joined by arrows) activate individually */
-    .flow-name {
+    /* Flow cards (the steps joined by arrows) activate individually:
+       the arrows are white here, and the one below the active card
+       turns green. (.flow-steps raises the specificity over the base
+       arrow rule further down.) */
+    .flow-steps .flow-step:not(:last-child)::after {
+      color: var(--fg);
       transition: color .55s ease, text-shadow .55s ease;
     }
-    .flow-step.is-active .flow-name {
+    .flow-steps .flow-step.is-active:not(:last-child)::after {
       color: var(--accent);
-      text-shadow: 0 0 24px var(--accent-glow);
+      text-shadow: 0 0 12px var(--accent-glow);
     }
     /* "Connect on LinkedIn" in the hero gets an accent border */
     .btn--linkedin {

@@ -1317,15 +1317,16 @@
     .case-step.is-active .case-step-num {
       text-shadow: 0 0 18px var(--accent-glow);
     }
-    /* Flow cards (the steps joined by arrows) activate individually:
-       the arrows are white here, and the one below the active card
-       turns green. (.flow-steps raises the specificity over the base
-       arrow rule further down.) */
+    /* Flow cards (the steps joined by arrows): the arrows are white here.
+       Each arrow turns green while it sits between 10 % and 50 % of the
+       screen height, so it stays green until it reaches the top 10 %
+       (set in JS as .is-arrow-lit). (.flow-steps raises the specificity
+       over the base arrow rule further down.) */
     .flow-steps .flow-step:not(:last-child)::after {
       color: var(--fg);
       transition: color .55s ease, text-shadow .55s ease;
     }
-    .flow-steps .flow-step.is-active:not(:last-child)::after {
+    .flow-steps .flow-step.is-arrow-lit:not(:last-child)::after {
       color: var(--accent);
       text-shadow: 0 0 12px var(--accent-glow);
     }
@@ -2900,10 +2901,9 @@
      ----------------------------------------------------------------- */
   const groups = [];
 
-  // Individual targets — each journey-item, toolcard, principle, case step,
-  // flow card (the steps joined by arrows) and the hero's LinkedIn button
-  // is its own group
-  document.querySelectorAll('.btn--linkedin, .journey-item, .toolcard, .principle, .case-step, .flow-step').forEach(function (el) {
+  // Individual targets — each journey-item, toolcard, principle, case step
+  // and the hero's LinkedIn button is its own group
+  document.querySelectorAll('.btn--linkedin, .journey-item, .toolcard, .principle, .case-step').forEach(function (el) {
     groups.push([el]);
   });
 
@@ -2933,6 +2933,10 @@
 
   // The two contact buttons at the end of the page (handled on their own)
   const ctaLinks = document.querySelector('.cta-links');
+
+  // Flow cards with an arrow below them (every card but the last). Each
+  // arrow is handled on its own, not as part of the single active group.
+  const flowArrows = Array.prototype.slice.call(document.querySelectorAll('.flow-step:not(:last-child)'));
 
   if (allElements.length) {
     function groupCenter(group) {
@@ -2972,6 +2976,16 @@
       // page they rest at about 50–65 % on phones, so they stay lit).
       const ctaCenter = ctaLinks ? groupCenter([ctaLinks]) : null;
 
+      // Flow arrows: each arrow sits in the gap below its card. It lights up
+      // as it passes 50 % of the screen height and only goes dark again in
+      // the top 10 %, so a green arrow stays green for a while.
+      const arrowLit = flowArrows.map(function (step) {
+        const next = step.nextElementSibling;
+        const bottom = step.getBoundingClientRect().bottom;
+        const y = next ? (bottom + next.getBoundingClientRect().top) / 2 : bottom;
+        return y >= topLine && y <= bottomLine;
+      });
+
       // WRITE PHASE: sync .is-active across every tracked element
       const activeSet = activeGroup ? new Set(activeGroup) : new Set();
       allElements.forEach(function (el) {
@@ -2980,6 +2994,9 @@
       if (ctaLinks) {
         ctaLinks.classList.toggle('is-active', ctaCenter >= vh * 0.40 && ctaCenter <= vh * 0.92);
       }
+      flowArrows.forEach(function (step, k) {
+        step.classList.toggle('is-arrow-lit', arrowLit[k]);
+      });
     }
 
     let rafId = null;

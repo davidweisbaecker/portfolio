@@ -1943,8 +1943,8 @@
           <li><button type="button" class="ad-beat" data-t="0"><span class="ad-time">0:00</span><span class="ad-beat-name">The problem</span><span class="ad-beat-note">“People around the world are saying no to single-use plastic”</span></button></li>
           <li><button type="button" class="ad-beat" data-t="3.4"><span class="ad-time">0:03</span><span class="ad-beat-name">The product</span><span class="ad-beat-note">Reusable silicone stretch lids, stackable and space-saving</span></button></li>
           <li><button type="button" class="ad-beat" data-t="8.4"><span class="ad-time">0:08</span><span class="ad-beat-name">The proof</span><span class="ad-beat-note">The airtight seal keeps food fresh</span></button></li>
-          <li><button type="button" class="ad-beat" data-t="12.7"><span class="ad-time">0:13</span><span class="ad-beat-name">Why it matters</span><span class="ad-beat-note">Plastic takes a thousand years to decompose; the lids last thousands of uses</span></button></li>
-          <li><button type="button" class="ad-beat" data-t="22.1"><span class="ad-time">0:22</span><span class="ad-beat-name">Original vs. copies</span><span class="ad-beat-note">Stretches over any container, then a stretch test against a cheap copy</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="12.7"><span class="ad-time">0:13</span><span class="ad-beat-name">Why it matters</span><span class="ad-beat-note">Plastic takes a thousand years to decompose; the lids last thousands of uses and stretch over any container</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="26.5"><span class="ad-time">0:27</span><span class="ad-beat-name">Original vs. copies</span><span class="ad-beat-note">A stretch test against a cheap copy: the original resists pulling and stretching</span></button></li>
           <li><button type="button" class="ad-beat" data-t="37"><span class="ad-time">0:37</span><span class="ad-beat-name">The features</span><span class="ad-beat-note">Anti-spill, keeps produce fresh, BPA-free, safe for dishwasher, microwave and freezer</span></button></li>
         </ol>
       </figcaption>
@@ -2725,7 +2725,9 @@
      The video is muted, so it may play on its own: it plays while at least
      half of it is on screen and pauses when scrolled away. A pause by the
      viewer sticks. The story beats beside it jump to their timestamp and
-     mark the beat that is playing. */
+     mark the beat that is playing. On a phone the beats sit below the
+     video: a tap scrolls back up to it first, and the video starts at the
+     beat only once it is on screen, so nothing is missed on the way. */
   document.querySelectorAll('.ad').forEach(function (fig) {
     const video = fig.querySelector('video');
     if (!video) return;
@@ -2779,27 +2781,65 @@
     if (toggle) toggle.addEventListener('click', flip);
     video.addEventListener('seeked', markBeat);
 
+    function seek(s) {
+      if (video.readyState >= 1) {
+        video.currentTime = s;
+      } else {
+        video.addEventListener('loadedmetadata', function once() {
+          video.removeEventListener('loadedmetadata', once);
+          video.currentTime = s;
+        });
+      }
+    }
+
+    // Share of the video that is on screen, from 0 to 1 (the same element
+    // the observer below watches).
+    function shownShare() {
+      const r = video.getBoundingClientRect();
+      const h = window.innerHeight || document.documentElement.clientHeight;
+      const seen = Math.min(r.bottom, h) - Math.max(r.top, 0);
+      return r.height > 0 ? Math.max(0, seen) / r.height : 0;
+    }
+
+    const watching = !calm && 'IntersectionObserver' in window;
+    let pendingStart = null;
+
     beats.forEach(function (b, k) {
       b.addEventListener('click', function () {
         const s = times[k];
-        if (video.readyState >= 1) {
-          video.currentTime = s;
-        } else {
-          video.addEventListener('loadedmetadata', function once() {
-            video.removeEventListener('loadedmetadata', once);
-            video.currentTime = s;
-          });
-        }
+        const shown = shownShare();
         heldByViewer = false;
-        start();
+        if (shown >= 0.5 || !watching) {
+          // The video is (mostly) on screen, or scrolling is instant:
+          // jump and play right away.
+          pendingStart = null;
+          if (shown < 0.9) {
+            (player || video).scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: shown >= 0.5 ? 'nearest' : 'center' });
+          }
+          seek(s);
+          start();
+        } else {
+          // The video is off screen (on a phone the beats sit below it):
+          // scroll up to it first. The observer below starts it at the beat
+          // once at least half of it is visible again.
+          if (!video.paused) { autoPausing = true; video.pause(); }
+          pendingStart = s;
+          if (video.readyState >= 1) video.currentTime = s;
+          (player || video).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         markBeat();
       });
     });
 
-    if (!calm && 'IntersectionObserver' in window) {
+    if (watching) {
       new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            if (pendingStart !== null) {
+              seek(pendingStart);
+              pendingStart = null;
+              heldByViewer = false;
+            }
             if (!heldByViewer && video.paused) start();
           } else if (!video.paused) {
             autoPausing = true;

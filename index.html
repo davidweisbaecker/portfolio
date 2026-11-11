@@ -2893,9 +2893,11 @@
      pairs and tag rows light up together while still treating journey
      items and toolcards individually.
 
-     Group center = average Y center of all member elements. The closest
-     group to the band's midpoint (30% from top) wins and exactly one
-     group is active at a time.
+     Group center = average Y center of all member elements. The band runs
+     from 10% to 50% of the screen height, and the lowest group in it
+     wins: a group lights up as soon as its center crosses the middle of
+     the screen (50%) and stays lit until the next group crosses it or it
+     leaves the top 10%. Exactly one group is active at a time.
 
      Implementation: passive scroll + resize listeners throttled via rAF,
      with read/compute/write phases batched to avoid layout thrashing.
@@ -2953,21 +2955,18 @@
       const vh = window.innerHeight;
       const topLine    = vh * 0.10;
       const bottomLine = vh * 0.50;
-      const midBand    = (topLine + bottomLine) / 2;
 
       // READ PHASE: collect centers for all groups
       const centers = groups.map(groupCenter);
 
-      // COMPUTE PHASE: pick the single best group
+      // COMPUTE PHASE: pick the single best group, the lowest one in the
+      // band (the one that crossed the middle of the screen last)
       let activeGroup = null;
-      let bestDist = Infinity;
+      let lowest = -Infinity;
       centers.forEach(function (c, idx) {
-        if (c >= topLine && c <= bottomLine) {
-          const dist = Math.abs(c - midBand);
-          if (dist < bestDist) {
-            bestDist = dist;
-            activeGroup = groups[idx];
-          }
+        if (c >= topLine && c <= bottomLine && c > lowest) {
+          lowest = c;
+          activeGroup = groups[idx];
         }
       });
 

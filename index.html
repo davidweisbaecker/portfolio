@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>David Weisbäcker — Product Management · Process Design · UX</title>
-<meta name="description" content="Aspiring Product Manager bridging user needs and scalable system architecture. Self-employed since 2018, now studying UX Design at THI with a focus on Human–AI Interaction.">
+<meta name="description" content="UX Design student at TH Ingolstadt with seven years of running my own businesses, looking for a product management internship from September 2027.">
 <meta name="theme-color" content="#0a0a0b">
 
 <!-- Open Graph / social preview (LinkedIn, WhatsApp, etc.) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://davidweisbaecker.github.io/portfolio/">
 <meta property="og:title" content="David Weisbäcker — Aspiring Product Manager">
-<meta property="og:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · Self-employed since 2018.">
+<meta property="og:description" content="UX Design student with seven years of running my own businesses. Looking for a product management internship from September 2027.">
 <meta property="og:image" content="https://davidweisbaecker.github.io/portfolio/preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="David Weisbäcker — Aspiring Product Manager">
-<meta name="twitter:description" content="Bridging user needs and scalable system architecture. UX Design · Human–AI Interaction · Self-employed since 2018.">
+<meta name="twitter:description" content="UX Design student with seven years of running my own businesses. Looking for a product management internship from September 2027.">
 <meta name="twitter:image" content="https://davidweisbaecker.github.io/portfolio/preview.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjYTNlNjM1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3MCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBhMGEwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkQ8L3RleHQ+PC9zdmc+">
 
@@ -1431,7 +1431,8 @@
 
   /* Anchor offset: when a nav link jumps to #case-study, scroll a bit further
      past the section's top padding so the eyebrow isn't lost in whitespace. */
-  #case-study {
+  #case-study,
+  #ecommerce {
     scroll-margin-top: -4rem;
   }
   /* ---------- BUSINESS CASES — results, ad frames, funnel, retro ---------- */
@@ -1607,6 +1608,165 @@
   @media (hover: hover) and (pointer: fine) {
     .journey-link:hover .arrow { transform: translateX(4px); }
   }
+
+  /* ---------- HERO ON SMALL SCREENS ---------- */
+  @media (max-width: 879px) {
+    .portrait { aspect-ratio: 1 / 1; max-width: 520px; }
+  }
+
+  /* ---------- HERO PROOF ROW ---------- */
+  .stats--hero {
+    margin-top: clamp(2.75rem, 5vw, 4rem);
+    position: relative;
+    z-index: 1;
+  }
+  .stats--hero .stat { min-height: 132px; }
+  .stats--hero .stat-num { font-size: clamp(2rem, 4vw, 2.8rem); }
+
+  /* ---------- AD VIDEO + STORY BEATS ---------- */
+  .ad {
+    margin: clamp(3rem, 7vw, 5rem) 0 0;
+    display: grid;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+  }
+  @media (min-width: 880px) {
+    .ad { grid-template-columns: minmax(0, 440px) 1fr; }
+  }
+  .ad-player { max-width: 440px; }
+  .ad-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    background: var(--bg-elev);
+    cursor: pointer;
+  }
+  .ad-toggle {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    top: calc(clamp(.5rem, 1.4vw, 1rem) + .65rem);
+    right: calc(clamp(.5rem, 1.4vw, 1rem) + .65rem);
+    z-index: 2;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    color: var(--fg);
+    background: rgba(10, 10, 11, .72);
+    border: 1px solid var(--border-mid);
+    border-radius: 50%;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .ad-toggle svg { width: 1rem; height: 1rem; }
+  .ad-toggle .ad-icon-pause,
+  .ad-player.is-playing .ad-toggle .ad-icon-play { display: none; }
+  .ad-player.is-playing .ad-toggle .ad-icon-pause { display: block; }
+  .ad-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .ad-progress {
+    height: 2px;
+    margin-top: .5rem;
+    background: var(--border-mid);
+    overflow: hidden;
+  }
+  .ad-progress > span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+  .ad-title {
+    margin: 0 0 .6rem;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .ad-text {
+    margin: 0 0 1.5rem;
+    color: var(--fg-mute);
+    font-size: .98rem;
+    line-height: 1.65;
+    max-width: 52ch;
+  }
+  .ad-beats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+  .ad-beats li { border-bottom: 1px solid var(--border); }
+  .ad-beat {
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: .2rem 1rem;
+    padding: .85rem .25rem;
+  }
+  .ad-beat:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .ad-time {
+    grid-row: span 2;
+    padding-top: .2rem;
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    color: var(--accent);
+  }
+  .ad-beat-name {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    transition: color .2s ease, text-shadow .2s ease;
+  }
+  .ad-beat-note { color: var(--fg-mute); font-size: .9rem; line-height: 1.5; }
+  .ad-beat.is-current .ad-beat-name {
+    color: var(--accent);
+    text-shadow: 0 0 18px var(--accent-glow);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ad-beat:hover .ad-beat-name { color: var(--accent); }
+    .ad-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  }
+
+  /* ---------- TWO PHOTOS (team project) ---------- */
+  .shot--duo { max-width: 780px; }
+  .frames--duo { grid-auto-columns: 80%; }
+  .frames--duo img { aspect-ratio: 3 / 4; object-fit: cover; }
+  @media (min-width: 560px) {
+    .frames--duo {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, 1fr);
+      overflow: visible;
+    }
+    .shot--duo .shot-hint { display: none; }
+  }
+
+  /* ---------- JOURNEY INTRO ---------- */
+  .journey-intro {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    max-width: 62ch;
+    color: var(--fg-mute);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  .journey-intro p { margin: 0; }
+  .journey-intro p + p { margin-top: 1.1rem; }
+
+  /* ---------- HOW I WORK: links to the proof ---------- */
+  .principle-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.75rem;
+  }
 </style>
 </head>
 <body>
@@ -1617,11 +1777,10 @@
     <span class="topbar-logo">DW <span class="sep">·</span> <span class="portfolio">PORTFOLIO</span></span>
 
     <nav class="topbar-nav" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#toolkit">Toolkit</a>
-      <a href="#how-i-work">How I Work</a>
-      <a href="#case-study">Case Studies</a>
+      <a href="#ecommerce">Work</a>
       <a href="#journey">Journey</a>
+      <a href="#how-i-work">How I Work</a>
+      <a href="#contact">Contact</a>
     </nav>
 
     <button class="topbar-burger"
@@ -1653,11 +1812,11 @@
           <span class="dot">·</span> Human–AI Interaction
         </p>
         <p class="hero-sub reveal d4">
-          Bridging the gap between user needs and <span class="strong">scalable system architecture</span> — turning operational rigor and design research into evidence-based product decisions.
+          UX Design student at TH Ingolstadt with <span class="strong">seven years of running my own businesses</span>. Looking for a 20-week product management internship from September 2027.
         </p>
         <div class="hero-cta reveal d5">
-          <a class="btn btn--gold" href="#case-study">
-            View Case Studies <span class="arrow">→</span>
+          <a class="btn btn--gold" href="#ecommerce">
+            See my work <span class="arrow">→</span>
           </a>
           <a class="btn btn--ghost-dark" href="https://www.linkedin.com/in/weisbaecker/" target="_blank" rel="noopener">
             Connect on LinkedIn
@@ -1666,6 +1825,25 @@
       </div>
 
     </div>
+
+    <div class="stats stats--hero reveal d5" aria-label="At a glance">
+      <div class="stat">
+        <div class="stat-num">€100k</div>
+        <div class="stat-lbl">Revenue in<br>two months</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">~30</div>
+        <div class="stat-lbl">Coaching<br>clients</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-lbl">Years<br>self-employed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1.5</div>
+        <div class="stat-lbl">Grade average<br>(1.0 = best)</div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -1673,11 +1851,10 @@
 <!-- =========== MOBILE MENU OVERLAY =========== -->
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <nav class="mobile-menu-nav" aria-label="Mobile primary">
-    <a href="#about"><span class="mobile-menu-num">01</span> About</a>
-    <a href="#toolkit"><span class="mobile-menu-num">02</span> Toolkit</a>
+    <a href="#ecommerce"><span class="mobile-menu-num">01</span> Work</a>
+    <a href="#journey"><span class="mobile-menu-num">02</span> Journey</a>
     <a href="#how-i-work"><span class="mobile-menu-num">03</span> How I Work</a>
-    <a href="#case-study"><span class="mobile-menu-num">04</span> Case Studies</a>
-    <a href="#journey"><span class="mobile-menu-num">05</span> Journey</a>
+    <a href="#contact"><span class="mobile-menu-num">04</span> Contact</a>
   </nav>
   <div class="mobile-menu-footer">
     <span>d.weisbaecker@web.de</span>
@@ -1686,131 +1863,254 @@
 </div>
 
 
-<!-- =========== ABOUT =========== -->
-<section class="section section--cream" id="about">
+<!-- =========== CASE STUDY 03 · E-COMMERCE =========== -->
+<section class="section section--cream" id="ecommerce">
   <div class="wrap">
-    <span class="eyebrow">About Me</span>
+    <span class="eyebrow">Business Case · E-Commerce</span>
 
-    <div class="about-grid about">
-      <h2 class="display">
-        From operational bottlenecks to <em>strategic product decisions</em>
-      </h2>
-      <div class="lede">
-        <p>Great products fail if the underlying processes don't scale. I've been self-employed since 2018 — I grew an e-commerce brand into its own GmbH, ran a coaching business and still run a tutoring business today. Doing all of it end-to-end taught me a critical lesson: a seamless interface is useless without a robust, scalable system behind it.</p>
-        <p>Now I'm studying UX Design at THI to add the other half: research, interaction design and AI. The goal is product management — turning user needs and business logic into clear decisions a team can build on.</p>
+    <div class="case">
+      <div>
+        <h2 class="display">
+          €100,000 in <span class="accent">two months</span>
+        </h2>
+        <p class="case-sub">In 2019 I built a dropshipping brand for sustainable kitchenware. One product, silicone lids that replace cling film, took off: €100,000 in revenue in November and December, at a return on ad spend of 3 to 4.</p>
+        <p class="case-takeaway">Dropshipping was the cheap way to test demand. The real work began once a product proved itself.</p>
+        <div class="tags">
+          <span class="tag">E-Commerce</span>
+          <span class="tag">Performance Marketing</span>
+          <span class="tag">Operations</span>
+          <span class="tag">Shopify</span>
+        </div>
+      </div>
+
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">Finding the product</h3>
+            <p>I tracked which Facebook and Instagram ads gained views fastest. The first two products flopped; the third, silicone lids, took off. Beeswax wraps and silicone bags never got ads of their own but sold as add-ons.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">Store and ads</h3>
+            <p>Two Shopify stores, in English and German, with a fast theme, photo reviews, bundles and upsells. I produced the video ads myself and scaled Meta spend to €1,000–1,500 a day.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">When it scaled</h3>
+            <p>Growth broke the operation, not the ads. Orders moved to a sourcing agent in Shenzhen with about seven days' delivery, support went to email templates and student friends, and a private loan bridged PayPal holding back up to 30% of revenue.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="stats stats--case" aria-label="Results at a glance">
+      <div class="stat">
+        <div class="stat-num">€100k</div>
+        <div class="stat-lbl">Revenue in<br>two months</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3–4</div>
+        <div class="stat-lbl">Return on<br>ad spend</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">€1.5k</div>
+        <div class="stat-lbl">Ad spend per<br>day, at peak</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7 days</div>
+        <div class="stat-lbl">Delivery<br>to customers</div>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats" aria-label="Profile at a glance">
-      <div class="stat">
-        <div class="stat-num">UX</div>
-        <div class="stat-lbl">Design<br>Focus</div>
+    <figure class="ad" aria-labelledby="ad-title">
+      <div class="ad-player shot-frame">
+        <video class="ad-video" src="assets/keepitfresh-ad.mp4" poster="assets/keepitfresh-ad-poster.webp" width="400" height="400" muted loop playsinline preload="none" aria-label="The KeepItFresh video ad, without sound"></video>
+        <button type="button" class="ad-toggle" aria-label="Play the video">
+          <svg class="ad-icon-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.25v9.5L12.5 8z" fill="currentColor"/></svg>
+          <svg class="ad-icon-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.25 3.25h2.75v9.5H4.25zM9 3.25h2.75v9.5H9z" fill="currentColor"/></svg>
+        </button>
+        <div class="ad-progress" aria-hidden="true"><span></span></div>
       </div>
-      <div class="stat">
-        <div class="stat-num">Founder</div>
-        <div class="stat-lbl">Since<br>2018</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">AI</div>
-        <div class="stat-lbl">Human–AI<br>Interaction</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">ProdOps</div>
-        <div class="stat-lbl">Process<br>Design</div>
-      </div>
+      <figcaption class="ad-side">
+        <h3 class="ad-title" id="ad-title">The ad, told without sound</h3>
+        <p class="ad-text">I produced this video myself. Most people scroll with the sound off, so the whole story runs as on-screen text. Pick a step to jump there.</p>
+        <ol class="ad-beats">
+          <li><button type="button" class="ad-beat" data-t="0"><span class="ad-time">0:00</span><span class="ad-beat-name">The problem</span><span class="ad-beat-note">“People around the world are saying no to single-use plastic”</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="3.4"><span class="ad-time">0:03</span><span class="ad-beat-name">The product</span><span class="ad-beat-note">Reusable silicone stretch lids, stackable and space-saving</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="8.4"><span class="ad-time">0:08</span><span class="ad-beat-name">The proof</span><span class="ad-beat-note">The airtight seal keeps food fresh</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="12.7"><span class="ad-time">0:13</span><span class="ad-beat-name">Why it matters</span><span class="ad-beat-note">Plastic takes a thousand years to decompose; the lids last thousands of uses</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="22.1"><span class="ad-time">0:22</span><span class="ad-beat-name">Original vs. copies</span><span class="ad-beat-note">Stretches over any container, then a stretch test against a cheap copy</span></button></li>
+          <li><button type="button" class="ad-beat" data-t="37"><span class="ad-time">0:37</span><span class="ad-beat-name">The features</span><span class="ad-beat-note">Anti-spill, keeps produce fresh, BPA-free, safe for dishwasher, microwave and freezer</span></button></li>
+        </ol>
+      </figcaption>
+    </figure>
+
+    <div class="case-retro">
+      <p class="case-retro-label">Looking back</p>
+      <p>No later product broke even, and selling what Amazon offered cheaper and faster wasn't worth building on, so I stopped in 2021. Today I would test the add-ons as products of their own, keep the list of past buyers working with seasonal offers, run split tests even when things work, and let AI agents take routine support and a daily ad report.</p>
     </div>
   </div>
 </section>
 
 
-<!-- =========== TOOLKIT =========== -->
-<section class="section section--dark" id="toolkit">
+<!-- =========== CASE STUDY 04 · COACHING BUSINESS =========== -->
+<section class="section section--dark" id="coaching">
   <div class="wrap">
-    <span class="eyebrow">Core Competencies</span>
-    <h2 class="display">My <em>product toolkit</em></h2>
+    <span class="eyebrow">Business Case · Coaching</span>
 
-    <div class="toolkit-grid">
-      <article class="toolcard">
-        <div class="toolcard-num">01 / Strategy</div>
-        <h3>Product Strategy &amp; Discovery</h3>
-        <p>Turning market research and user pain points into clear priorities — grounded in evidence, not opinion.</p>
-      </article>
+    <div class="case">
+      <div>
+        <img class="case-logo" src="assets/soul-and-purpose-logo.webp" alt="Soul and Purpose" width="526" height="114" loading="lazy" decoding="async">
+        <h2 class="display">
+          A coaching business from <span class="accent">zero</span>
+        </h2>
+        <p class="case-sub">From 2021 to 2025 I ran Soul and Purpose: a 15-week one-to-one program, priced from €2,500 up to €4,000. About 30 clients went through it, up to seven at a time, partly while I lived in South America and Southeast Asia.</p>
+        <p class="case-takeaway">Several hundred discovery calls taught me the core of product work: find the need behind what people say.</p>
+        <div class="tags">
+          <span class="tag">Customer Discovery</span>
+          <span class="tag">Offer &amp; Pricing</span>
+          <span class="tag">Sales Funnel</span>
+          <span class="tag">Remote</span>
+        </div>
+      </div>
 
-      <article class="toolcard">
-        <div class="toolcard-num">02 / Operations</div>
-        <h3>Process Design &amp; Ops</h3>
-        <p>Building lean operational workflows from the ground up — from briefing freelancers to documenting repeatable processes and templates that let a system run without me.</p>
-      </article>
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">The offer</h3>
+            <p>15 weeks at one fixed price: a weekly one-to-one call, material to work through and one small habit a week. Clients rated twelve areas of life at the start and the end. Twice I also mentored new coaches on positioning, offer, pricing, website and funnel.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">The funnel</h3>
+            <p>Instagram content, direct messages, a free first call, then a sales call I closed myself. Paid Meta ads brought more calls but worse fits, so I stopped them. Referrals never came; few people talk openly about this topic.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">Remote and results</h3>
+            <p>Half a year in South America with calls from 8 a.m., half a year in Southeast Asia with calls late into the night. About 30 clients, one renewal, many positive Trustpilot reviews and video testimonials from six clients.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
 
-      <article class="toolcard">
-        <div class="toolcard-num">03 / AI</div>
-        <h3>Human–AI Interaction</h3>
-        <p>Knowing where AI helps and where it breaks — from the 18 guidelines for Human–AI Interaction to my own measured experiments with AI design tools.</p>
-      </article>
+    <div class="stats stats--case" aria-label="Results at a glance">
+      <div class="stat">
+        <div class="stat-num">~30</div>
+        <div class="stat-lbl">Clients<br>coached</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-lbl">Clients at<br>once (peak)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">€4k</div>
+        <div class="stat-lbl">Price, up<br>from €2.5k</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15</div>
+        <div class="stat-lbl">Weeks per<br>program</div>
+      </div>
+    </div>
 
-      <article class="toolcard">
-        <div class="toolcard-num">04 / Insight</div>
-        <h3>Data &amp; Analytics</h3>
-        <p>Working with real usage data — like 21 million rows from a campus app, analysed with Python and Pandas — and turning it into insights people get at a glance.</p>
-      </article>
+    <figure class="flow" aria-labelledby="flow-title">
+      <figcaption><h3 class="flow-title" id="flow-title">How clients found me</h3></figcaption>
+      <ol class="flow-steps">
+        <li class="flow-step">
+          <span class="flow-num">01</span>
+          <span class="flow-name">Instagram content</span>
+          <span class="flow-note">1,600 followers, plus YouTube and a podcast</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">02</span>
+          <span class="flow-name">Direct messages</span>
+          <span class="flow-note">Conversations started by the content</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">03</span>
+          <span class="flow-name">Free first call</span>
+          <span class="flow-note">10–15 of them for every new client</span>
+        </li>
+        <li class="flow-step flow-step--end">
+          <span class="flow-num">04</span>
+          <span class="flow-name">Sales call</span>
+          <span class="flow-note">Closed myself, about 30 clients in total</span>
+        </li>
+      </ol>
+    </figure>
+
+    <div class="case-retro">
+      <p class="case-retro-label">Looking back</p>
+      <p>By the end of 2024 I wanted to improve products rather than coach people, so I closed the business in June 2025 and started UX Design at THI. My only metric was a self-rating at the start and the end; today I would track every step of the funnel and each client's progress.</p>
     </div>
   </div>
 </section>
 
 
-<!-- =========== HOW I WORK =========== -->
-<section class="section section--cream" id="how-i-work">
+<!-- =========== CASE STUDY · ALIGN. (TEAM PROJECT) =========== -->
+<section class="section section--cream" id="align">
   <div class="wrap">
-    <span class="eyebrow">How I Work</span>
-    <h2 class="display">Beyond the <em>toolkit</em></h2>
+    <span class="eyebrow">Team Project · In Progress</span>
 
-    <div class="principles">
-
-      <article class="principle">
-        <div class="principle-num">01</div>
-        <div class="principle-body">
-          <h3 class="principle-title">Translation between worlds</h3>
-          <p class="principle-text">Running my own e-commerce business, I constantly balanced site performance against features — auditing load times, swapping out heavy plugins, compressing media and briefing freelance developers to slim down the code. My role has always been making different disciplines understand each other, turning fuzzy requirements into clear, actionable direction.</p>
+    <div class="case">
+      <div>
+        <h2 class="display">
+          A nudge you can&nbsp;<span class="accent">wear</span>
+        </h2>
+        <p class="case-sub">In our Human–Machine Interface Design course at THI, my team is designing Align.: a necklace that notices when you've sat in the same position for too long and reminds you with a gentle, wave-like vibration. The companion app shows how you've been sitting, with a Duolingo-style avatar.</p>
+        <p class="case-takeaway">Get the flow right before you polish the pixels.</p>
+        <div class="tags">
+          <span class="tag">User Interviews</span>
+          <span class="tag">Paper Prototyping</span>
+          <span class="tag">Wearables</span>
+          <span class="tag">Team Project</span>
         </div>
-      </article>
+      </div>
 
-      <article class="principle">
-        <div class="principle-num">02</div>
-        <div class="principle-body">
-          <h3 class="principle-title">Clarity over complexity</h3>
-          <p class="principle-text">I communicate uncertain or technical ideas through clear visuals and presentations — from designing an information poster for a university app to breaking down complex topics into simple graphics as a coach. If a stakeholder can't follow it, it isn't finished.</p>
-        </div>
-      </article>
-
-      <article class="principle">
-        <div class="principle-num">03</div>
-        <div class="principle-body">
-          <h3 class="principle-title">Meeting people where they are</h3>
-          <p class="principle-text">As a coach and tutor, I never left anyone behind when their pace differed from the plan — I re-prioritised and adapted the content so each person still reached their goal. That same instinct drives how I shape a roadmap around a team's real constraints rather than an idealised one.</p>
-        </div>
-      </article>
-
-      <article class="principle">
-        <div class="principle-num">04</div>
-        <div class="principle-body">
-          <h3 class="principle-title">Calm when the plan breaks</h3>
-          <p class="principle-text">When I'm wrong, I don't panic. I gather fresh input from research, AI and experts, salvage whatever is reusable and rebuild an efficient plan. Just as importantly, I keep the team's morale up while we course-correct — momentum matters as much as the fix.</p>
-        </div>
-      </article>
-
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">Interviews</h3>
+            <p>We interviewed people who sit most of the day. The office worker I talked to sits about two hours at a stretch, gave up on his standing desk without knowing why and keeps notifications off at work. He wanted to snooze or skip a reminder right on the necklace, for example during a client call.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">Paper prototype</h3>
+            <p>We printed every screen of the app, laid out each transition as a paper arrow and walked through the whole flow with our professor. Gaps and dead ends showed up before anyone opened Figma.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">Next</h3>
+            <p>Usability tests, then the final concept, presented to companies in January 2027.</p>
+          </div>
+        </li>
+      </ol>
     </div>
 
-    <!-- Collaboration proof + traits -->
-    <p class="principle-proof">
-      Today I run my own tutoring business — and since 2026 I also match students with other tutors: managing relationships between parents and tutors, resolving conflicts and pairing the right teachers with the right students. Stakeholder management isn't theory for me; it's what I do every week.
-    </p>
-    <div class="traits">
-      <span class="trait">Leads with confidence</span>
-      <span class="trait">Owns responsibility</span>
-      <span class="trait">Brings the team together</span>
-      <span class="trait">Reliable &amp; conscientious</span>
-    </div>
+    <figure class="shot shot--duo">
+      <div class="shot-frame">
+        <ul class="frames frames--duo">
+          <li><img src="assets/align-paper-prototype.webp" alt="Two students and their professor review a paper prototype of a mobile app: printed screens laid out on a table, connected by green and red paper arrows." width="900" height="1200" loading="lazy" decoding="async"></li>
+          <li><img src="assets/align-paper-prototype-team.webp" alt="Three students review the printed screens of the Align. paper prototype; one holds a red paper arrow, another points at a screen with a pen." width="900" height="1200" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <figcaption class="shot-caption"><span class="shot-label">Paper prototype</span>Every screen printed, every transition a paper arrow: reviewing the flow with Prof. Ingrid Stahl and within the team. <span class="shot-hint">Swipe for the second photo.</span></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -1940,8 +2240,87 @@
 </section>
 
 
+<!-- =========== CASE STUDY · AI AGENTS =========== -->
+<section class="section section--cream" id="ai-agents">
+  <div class="wrap">
+    <span class="eyebrow">Side Project · AI Agents</span>
+
+    <div class="case">
+      <div>
+        <h2 class="display">
+          Agents on the <span class="accent">night&nbsp;shift</span>
+        </h2>
+        <p class="case-sub">Since October 2026, two agents I built with Claude run on a schedule: one turns my lecture slides into exercise booklets every night, the other checks career pages for product internships every Monday.</p>
+        <p class="case-takeaway">Writing an agent's brief is product work: define the output, set the limits, check the results.</p>
+        <div class="tags">
+          <span class="tag">AI Agents</span>
+          <span class="tag">Prompt Design</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Claude</span>
+        </div>
+      </div>
+
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">The brief</h3>
+            <p>Each agent has a written brief, like a product requirement: inputs, the exact output format, a budget per run and hard limits. When the output misses, I fix the brief.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">Study agent</h3>
+            <p>Every night it takes one lecture script from Google Drive and writes a printable exercise booklet: a summary with slide references, 12–25 exercises on three levels, a 30-minute mini exam and Anki flashcards. It sticks to the script and marks anything it adds.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">Internship scout</h3>
+            <p>Every Monday it checks dozens of career pages and job boards against my criteria and sends a short report. It only reports: it never applies or contacts anyone, and a role without a link doesn't count.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <figure class="flow" aria-labelledby="agent-flow-title">
+      <figcaption><h3 class="flow-title" id="agent-flow-title">How the study agent works</h3></figcaption>
+      <ol class="flow-steps">
+        <li class="flow-step">
+          <span class="flow-num">01</span>
+          <span class="flow-name">Lecture script</span>
+          <span class="flow-note">Slides or a PDF, dropped into a course folder</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">02</span>
+          <span class="flow-name">Exam profile</span>
+          <span class="flow-note">Built once per course from past exams: question types, points, recurring topics</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">03</span>
+          <span class="flow-name">Exercise booklet</span>
+          <span class="flow-note">One per night, to stay within my usage budget</span>
+        </li>
+        <li class="flow-step flow-step--end">
+          <span class="flow-num">04</span>
+          <span class="flow-name">Flashcards</span>
+          <span class="flow-note">15–40 Anki cards per script</span>
+        </li>
+      </ol>
+    </figure>
+
+    <div class="case-retro">
+      <p class="case-retro-label">Product check</p>
+      <p>I also looked at turning the study agent into an app for other students. Two things argue against building right away: at an estimated €0.50–3 in AI costs per booklet, a flat €5 subscription doesn't hold up for heavy users, and NotebookLM already covers much of it for free. The next step would be a test with classmates, not an app.</p>
+    </div>
+  </div>
+</section>
+
+
 <!-- =========== CASE STUDY 02 · HUMAN–AI RESEARCH =========== -->
-<section class="section section--cream" id="research">
+<section class="section section--dark" id="research">
   <div class="wrap">
     <span class="eyebrow">Research Deep-Dive</span>
 
@@ -2018,207 +2397,29 @@
 </section>
 
 
-<!-- =========== CASE STUDY 03 · E-COMMERCE =========== -->
-<section class="section section--dark" id="ecommerce">
-  <div class="wrap">
-    <span class="eyebrow">Business Case · E-Commerce</span>
-
-    <div class="case">
-      <div>
-        <h2 class="display">
-          €100,000 in <span class="accent">two months</span>
-        </h2>
-        <p class="case-sub">In 2019 I built a dropshipping brand for sustainable kitchenware. One product, silicone lids that replace cling film, took off: €100,000 in revenue in November and December, at a return on ad spend of 3 to 4.</p>
-        <p class="case-takeaway">Dropshipping was the cheap way to test demand. The real work began once a product proved itself.</p>
-        <div class="tags">
-          <span class="tag">E-Commerce</span>
-          <span class="tag">Performance Marketing</span>
-          <span class="tag">Operations</span>
-          <span class="tag">Shopify</span>
-        </div>
-      </div>
-
-      <ol class="case-steps">
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">01</span>
-          <div>
-            <h3 class="case-step-title">Finding the product</h3>
-            <p>I tracked which Facebook and Instagram ads gained views fastest. The first two products flopped; the third, silicone lids, took off. Beeswax wraps and silicone bags never got ads of their own but sold as add-ons.</p>
-          </div>
-        </li>
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">02</span>
-          <div>
-            <h3 class="case-step-title">Store and ads</h3>
-            <p>Two Shopify stores, in English and German, with a fast theme, photo reviews, bundles and upsells. I produced the video ads myself and scaled Meta spend to €1,000–1,500 a day.</p>
-          </div>
-        </li>
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">03</span>
-          <div>
-            <h3 class="case-step-title">When it scaled</h3>
-            <p>Growth broke the operation, not the ads. Orders moved to a sourcing agent in Shenzhen with about seven days' delivery, support went to email templates and student friends, and a private loan bridged PayPal holding back up to 30% of revenue.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-
-    <div class="stats stats--case" aria-label="Results at a glance">
-      <div class="stat">
-        <div class="stat-num">€100k</div>
-        <div class="stat-lbl">Revenue in<br>two months</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3–4</div>
-        <div class="stat-lbl">Return on<br>ad spend</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">€1.5k</div>
-        <div class="stat-lbl">Ad spend per<br>day, at peak</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">7 days</div>
-        <div class="stat-lbl">Delivery<br>to customers</div>
-      </div>
-    </div>
-
-    <figure class="shot">
-      <div class="shot-frame">
-        <ul class="frames">
-          <li><img src="assets/keepitfresh-ad-1.webp" alt="Ad frame: hands stretch a blue silicone lid over a bowl. Caption: People around the world are saying no to single-use plastic." width="400" height="400" loading="lazy" decoding="async"></li>
-          <li><img src="assets/keepitfresh-ad-2.webp" alt="Ad frame: a halved watermelon sealed with a clear silicone lid. Caption: The airtight seal keeps food fresh." width="400" height="400" loading="lazy" decoding="async"></li>
-          <li><img src="assets/keepitfresh-ad-3.webp" alt="Ad frame: a pineapple half next to a roll of cling film. Caption: Plastic needs over a thousand years to decompose." width="400" height="400" loading="lazy" decoding="async"></li>
-          <li><img src="assets/keepitfresh-ad-4.webp" alt="Ad frame: a stretch test labelled Duplicate versus Original KeepItFresh." width="400" height="400" loading="lazy" decoding="async"></li>
-          <li><img src="assets/keepitfresh-ad-5.webp" alt="Ad frame: silicone lids in a dishwasher. Caption: BPA free and safe for dishwasher, microwave and freezer." width="400" height="400" loading="lazy" decoding="async"></li>
-        </ul>
-      </div>
-      <figcaption class="shot-caption"><span class="shot-label">The ad</span>Five frames from a 53-second video I produced myself. The whole story runs as on-screen text for people scrolling without sound: the plastic problem, the airtight seal, the original against cheap copies, the features, and a 60% offer at the end. <span class="shot-hint">Swipe for all five frames.</span></figcaption>
-    </figure>
-
-    <div class="case-retro">
-      <p class="case-retro-label">Looking back</p>
-      <p>No later product broke even, and selling what Amazon offered cheaper and faster wasn't worth building on, so I stopped in 2021. Today I would test the add-ons as products of their own, keep the list of past buyers working with seasonal offers, run split tests even when things work, and let AI agents take routine support and a daily ad report.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- =========== CASE STUDY 04 · COACHING BUSINESS =========== -->
-<section class="section section--cream" id="coaching">
-  <div class="wrap">
-    <span class="eyebrow">Business Case · Coaching</span>
-
-    <div class="case">
-      <div>
-        <img class="case-logo" src="assets/soul-and-purpose-logo.webp" alt="Soul and Purpose" width="526" height="114" loading="lazy" decoding="async">
-        <h2 class="display">
-          A coaching business from <span class="accent">zero</span>
-        </h2>
-        <p class="case-sub">From 2021 to 2025 I ran Soul and Purpose: a 15-week one-to-one program, priced from €2,500 up to €4,000. About 30 clients went through it, up to seven at a time, partly while I lived in South America and Southeast Asia.</p>
-        <p class="case-takeaway">Several hundred discovery calls taught me the core of product work: find the need behind what people say.</p>
-        <div class="tags">
-          <span class="tag">Customer Discovery</span>
-          <span class="tag">Offer &amp; Pricing</span>
-          <span class="tag">Sales Funnel</span>
-          <span class="tag">Remote</span>
-        </div>
-      </div>
-
-      <ol class="case-steps">
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">01</span>
-          <div>
-            <h3 class="case-step-title">The offer</h3>
-            <p>15 weeks at one fixed price: a weekly one-to-one call, material to work through and one small habit a week. Clients rated twelve areas of life at the start and the end. Twice I also mentored new coaches on positioning, offer, pricing, website and funnel.</p>
-          </div>
-        </li>
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">02</span>
-          <div>
-            <h3 class="case-step-title">The funnel</h3>
-            <p>Instagram content, direct messages, a free first call, then a sales call I closed myself. Paid Meta ads brought more calls but worse fits, so I stopped them. Referrals never came; few people talk openly about this topic.</p>
-          </div>
-        </li>
-        <li class="case-step">
-          <span class="case-step-num" aria-hidden="true">03</span>
-          <div>
-            <h3 class="case-step-title">Remote and results</h3>
-            <p>Half a year in South America with calls from 8 a.m., half a year in Southeast Asia with calls late into the night. About 30 clients, one renewal, many positive Trustpilot reviews and video testimonials from six clients.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-
-    <div class="stats stats--case" aria-label="Results at a glance">
-      <div class="stat">
-        <div class="stat-num">~30</div>
-        <div class="stat-lbl">Clients<br>coached</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">7</div>
-        <div class="stat-lbl">Clients at<br>once (peak)</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">€4k</div>
-        <div class="stat-lbl">Price, up<br>from €2.5k</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">15</div>
-        <div class="stat-lbl">Weeks per<br>program</div>
-      </div>
-    </div>
-
-    <figure class="flow" aria-labelledby="flow-title">
-      <figcaption><h3 class="flow-title" id="flow-title">How clients found me</h3></figcaption>
-      <ol class="flow-steps">
-        <li class="flow-step">
-          <span class="flow-num">01</span>
-          <span class="flow-name">Instagram content</span>
-          <span class="flow-note">1,600 followers, plus YouTube and a podcast</span>
-        </li>
-        <li class="flow-step">
-          <span class="flow-num">02</span>
-          <span class="flow-name">Direct messages</span>
-          <span class="flow-note">Conversations started by the content</span>
-        </li>
-        <li class="flow-step">
-          <span class="flow-num">03</span>
-          <span class="flow-name">Free first call</span>
-          <span class="flow-note">10–15 of them for every new client</span>
-        </li>
-        <li class="flow-step flow-step--end">
-          <span class="flow-num">04</span>
-          <span class="flow-name">Sales call</span>
-          <span class="flow-note">Closed myself, about 30 clients in total</span>
-        </li>
-      </ol>
-    </figure>
-
-    <div class="case-retro">
-      <p class="case-retro-label">Looking back</p>
-      <p>By the end of 2024 I wanted to improve products rather than coach people, so I closed the business in June 2025 and started UX Design at THI. My only metric was a self-rating at the start and the end; today I would track every step of the funnel and each client's progress.</p>
-    </div>
-  </div>
-</section>
-
-
 <!-- =========== JOURNEY =========== -->
-<section class="section section--dark" id="journey">
+<section class="section section--cream" id="journey">
   <div class="wrap">
     <span class="eyebrow">Experience &amp; Education</span>
     <h2 class="display" style="color: var(--fg)">My <em>journey</em></h2>
+
+    <div class="journey-intro">
+      <p>I've been self-employed since 2018: an e-commerce brand that made €100,000 in two months, a coaching business with about 30 clients and a tutoring business I still run. Doing all of it end to end taught me that a good interface is worth little without a process behind it that works.</p>
+      <p>Now I'm studying UX Design at THI to add the other half: research, interaction design and AI. The goal is product management — turning user needs and business logic into clear decisions a team can build on.</p>
+    </div>
 
     <div class="journey">
 
       <article class="journey-item">
         <div class="journey-time">
           2025 – Present
-          <small>Currently</small>
+          <small>Graduating 2029</small>
         </div>
         <div>
-          <p class="journey-org">TH Ingolstadt</p>
-          <h3 class="journey-role">UX Design Studies</h3>
-          <p class="journey-desc">Focus on Information Psychology and System Architecture — building the conceptual foundation for designing complex, data-driven software products.</p>
+          <p class="journey-org">TH Ingolstadt · B.Sc.</p>
+          <h3 class="journey-role">User Experience Design</h3>
+          <p class="journey-desc">Grade average 1.5 after two semesters (German scale, where 1.0 is the top grade). Courses include information psychology, human–machine interaction, software engineering in Java, web technologies and statistics. Internship semester: 20 weeks from September 2027.</p>
+          <a class="journey-link" href="#align">See the team project <span class="arrow">→</span></a>
         </div>
       </article>
 
@@ -2265,6 +2466,72 @@
 </section>
 
 
+<!-- =========== HOW I WORK =========== -->
+<section class="section section--dark" id="how-i-work">
+  <div class="wrap">
+    <span class="eyebrow">How I Work</span>
+    <h2 class="display">What I bring to a <em>product team</em></h2>
+
+    <div class="principles">
+
+      <article class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-body">
+          <h3 class="principle-title">Find the need behind the request</h3>
+          <p class="principle-text">Several hundred discovery calls as a coach taught me to listen for what people need, not just what they ask for. In my shop, cheap ad tests decided which product to scale.</p>
+          <div class="principle-links">
+            <a class="journey-link" href="#coaching">Coaching <span class="arrow">→</span></a>
+            <a class="journey-link" href="#ecommerce">E-commerce <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-body">
+          <h3 class="principle-title">Measure instead of guessing</h3>
+          <p class="principle-text">Return on ad spend in my shop, hours by hand versus with AI in a design course, 21 million rows of app data analysed with Python and Pandas. I'd rather show a number than argue an opinion.</p>
+          <div class="principle-links">
+            <a class="journey-link" href="#ecommerce">E-commerce <span class="arrow">→</span></a>
+            <a class="journey-link" href="#case-study">Neuland Next <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-body">
+          <h3 class="principle-title">Build systems that run without me</h3>
+          <p class="principle-text">When my shop outgrew me, I briefed freelance developers to slim down the site, moved orders to a sourcing agent and turned every recurring support case into a template. Today I write briefs for AI agents.</p>
+          <div class="principle-links">
+            <a class="journey-link" href="#ecommerce">E-commerce <span class="arrow">→</span></a>
+            <a class="journey-link" href="#ai-agents">AI agents <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="principle">
+        <div class="principle-num">04</div>
+        <div class="principle-body">
+          <h3 class="principle-title">Know where AI helps and where it breaks</h3>
+          <p class="principle-text">From the 18 guidelines for Human–AI Interaction to my own measured experiments: AI is fast at structure, while consistency and quality still need a person who checks.</p>
+          <div class="principle-links">
+            <a class="journey-link" href="#research">The talk <span class="arrow">→</span></a>
+            <a class="journey-link" href="#case-study">Neuland Next <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Collaboration proof -->
+    <p class="principle-proof">
+      Today I run my own tutoring business — and since 2026 I also match students with other tutors: managing relationships between parents and tutors, resolving conflicts and pairing the right teachers with the right students. Stakeholder management isn't theory for me; it's what I do every week.
+    </p>
+  </div>
+</section>
+
+
 <!-- =========== CTA =========== -->
 <section class="section section--cream cta" id="contact">
   <div class="wrap">
@@ -2273,7 +2540,7 @@
       Let's build something <em>scalable</em>.
     </h2>
     <p class="cta-text">
-      Currently looking for an <strong>internship or working-student role</strong> in product or UX — to bring operational rigor and a product mindset to a driven team.
+      I'm looking for a <strong>product management internship</strong>: 20 weeks, full-time and on-site, from September 2027, in Germany or abroad. I'm also open to a working-student role in product.
     </p>
 
     <div class="cta-links">
@@ -2294,7 +2561,7 @@
 <footer class="footer">
   © 2026 David Weisbäcker · Product Management · UX Design
   <br>
-  <span class="avail">Open to internships &amp; working-student roles</span>
+  <span class="avail">Open to PM internships from September 2027</span>
 </footer>
 
 
@@ -2452,6 +2719,96 @@
     }
 
     show(0);
+  });
+
+  /* ---------- Ad video ----------
+     The video is muted, so it may play on its own: it plays while at least
+     half of it is on screen and pauses when scrolled away. A pause by the
+     viewer sticks. The story beats beside it jump to their timestamp and
+     mark the beat that is playing. */
+  document.querySelectorAll('.ad').forEach(function (fig) {
+    const video = fig.querySelector('video');
+    if (!video) return;
+    const player = fig.querySelector('.ad-player');
+    const toggle = fig.querySelector('.ad-toggle');
+    const bar = fig.querySelector('.ad-progress > span');
+    const beats = Array.prototype.slice.call(fig.querySelectorAll('.ad-beat'));
+    const times = beats.map(function (b) { return parseFloat(b.getAttribute('data-t')) || 0; });
+    const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let heldByViewer = false;
+    let autoPausing = false;
+
+    function start() {
+      const p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    function markBeat() {
+      const t = video.currentTime;
+      let current = 0;
+      times.forEach(function (s, k) { if (t + 0.05 >= s) current = k; });
+      beats.forEach(function (b, k) {
+        const on = k === current;
+        b.classList.toggle('is-current', on);
+        if (on) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+      });
+    }
+
+    function showState(playing) {
+      if (player) player.classList.toggle('is-playing', playing);
+      if (toggle) toggle.setAttribute('aria-label', playing ? 'Pause the video' : 'Play the video');
+    }
+
+    function flip() {
+      if (video.paused) { heldByViewer = false; start(); }
+      else video.pause();
+    }
+
+    video.addEventListener('pause', function () {
+      showState(false);
+      if (autoPausing) { autoPausing = false; return; }
+      heldByViewer = true;
+    });
+    video.addEventListener('play', function () { heldByViewer = false; showState(true); });
+    video.addEventListener('timeupdate', function () {
+      if (bar && video.duration) bar.style.transform = 'scaleX(' + (video.currentTime / video.duration) + ')';
+      markBeat();
+    });
+    video.addEventListener('click', flip);
+    if (toggle) toggle.addEventListener('click', flip);
+    video.addEventListener('seeked', markBeat);
+
+    beats.forEach(function (b, k) {
+      b.addEventListener('click', function () {
+        const s = times[k];
+        if (video.readyState >= 1) {
+          video.currentTime = s;
+        } else {
+          video.addEventListener('loadedmetadata', function once() {
+            video.removeEventListener('loadedmetadata', once);
+            video.currentTime = s;
+          });
+        }
+        heldByViewer = false;
+        start();
+        markBeat();
+      });
+    });
+
+    if (!calm && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            if (!heldByViewer && video.paused) start();
+          } else if (!video.paused) {
+            autoPausing = true;
+            video.pause();
+          }
+        });
+      }, { threshold: [0, 0.5] }).observe(video);
+    }
+    markBeat();
   });
 
   /* ---------- Scroll-spy active state ----------

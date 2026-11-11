@@ -1434,6 +1434,179 @@
   #case-study {
     scroll-margin-top: -4rem;
   }
+  /* ---------- BUSINESS CASES — results, ad frames, funnel, retro ---------- */
+  .stats--case { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .stats--case .stat { min-height: 150px; }
+  .stats--case .stat-num { font-size: clamp(2.1rem, 4.4vw, 3rem); }
+
+  .case-logo {
+    display: block;
+    width: min(240px, 70%);
+    height: auto;
+    margin: 0 0 2rem;
+  }
+
+  .shot { margin: clamp(3rem, 7vw, 5rem) 0 0; }
+  .shot-frame {
+    position: relative;
+    padding: clamp(.5rem, 1.4vw, 1rem);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+  }
+  .section--cream .shot-frame { background: var(--bg); }
+  .shot-frame::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background-image:
+      linear-gradient(to right, var(--accent), var(--accent)),
+      linear-gradient(to bottom, var(--accent), var(--accent)),
+      linear-gradient(to left, var(--accent), var(--accent)),
+      linear-gradient(to top, var(--accent), var(--accent));
+    background-size: 28px 1px, 1px 28px, 28px 1px, 1px 28px;
+    background-position: top left, top left, bottom right, bottom right;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: .8;
+  }
+  /* Phones: swipe through the frames; wider screens: all five in a row */
+  .frames {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 74%;
+    gap: .6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .frames li { scroll-snap-align: start; }
+  .frames img { width: 100%; height: auto; aspect-ratio: 1 / 1; background: var(--bg-elev); }
+  @media (min-width: 720px) {
+    .frames {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(5, 1fr);
+      overflow: visible;
+    }
+  }
+  .shot-caption {
+    margin: 1.1rem 0 0;
+    color: var(--fg-mute);
+    font-size: .95rem;
+    line-height: 1.65;
+    max-width: 70ch;
+  }
+  .shot-label,
+  .case-retro-label,
+  .flow-num {
+    font-family: var(--f-mono);
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .shot-label { margin-right: .6rem; }
+  .shot-hint { color: var(--fg-dim); }
+  @media (min-width: 720px) { .shot-hint { display: none; } }
+
+  .flow {
+    margin: clamp(3rem, 7vw, 5rem) 0 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .flow-title {
+    margin: 0 0 1.75rem;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  .flow-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  @media (min-width: 760px) {
+    .flow-steps { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  }
+  .flow-step {
+    position: relative;
+    display: grid;
+    gap: .45rem;
+    align-content: start;
+    padding: 1.25rem 1.25rem 1.4rem;
+    border: 1px solid var(--border-mid);
+    background: var(--bg);
+  }
+  .flow-step--end { border-color: var(--accent); box-shadow: 0 0 24px var(--accent-dim); }
+  .flow-name {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1.08rem;
+    letter-spacing: -0.015em;
+    color: var(--fg);
+  }
+  .flow-note { color: var(--fg-mute); font-size: .9rem; line-height: 1.55; }
+  /* Arrow to the next step: down on phones, right on wider screens */
+  .flow-step:not(:last-child)::after {
+    content: "↓";
+    position: absolute;
+    left: 50%;
+    bottom: -1.45rem;
+    transform: translateX(-50%);
+    color: var(--accent);
+    font-family: var(--f-mono);
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+  @media (min-width: 760px) {
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      left: auto;
+      bottom: auto;
+      right: -1.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .flow-foot {
+    margin: 1.5rem 0 0;
+    font-size: .88rem;
+    line-height: 1.6;
+    color: var(--fg-dim);
+    max-width: 62ch;
+  }
+
+  .case-retro {
+    margin: clamp(2.75rem, 6vw, 4rem) 0 0;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--accent);
+    max-width: 72ch;
+  }
+  .case-retro-label { margin: 0 0 .65rem; }
+  .case-retro p + p { margin: 0; color: var(--fg-mute); font-size: 1.0125rem; line-height: 1.7; }
+
+  .journey-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: 1.1rem;
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .journey-link .arrow { transition: transform .2s ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .journey-link:hover .arrow { transform: translateX(4px); }
+  }
 </style>
 </head>
 <body>
@@ -1845,6 +2018,190 @@
 </section>
 
 
+<!-- =========== CASE STUDY 03 · E-COMMERCE =========== -->
+<section class="section section--dark" id="ecommerce">
+  <div class="wrap">
+    <span class="eyebrow">Business Case · E-Commerce</span>
+
+    <div class="case">
+      <div>
+        <h2 class="display">
+          €100,000 in <span class="accent">two months</span>
+        </h2>
+        <p class="case-sub">In 2019 I built a dropshipping brand for sustainable kitchenware. One product, silicone lids that replace cling film, took off: €100,000 in revenue in November and December, at a return on ad spend of 3 to 4.</p>
+        <p class="case-takeaway">Dropshipping was the cheap way to test demand. The real work began once a product proved itself.</p>
+        <div class="tags">
+          <span class="tag">E-Commerce</span>
+          <span class="tag">Performance Marketing</span>
+          <span class="tag">Operations</span>
+          <span class="tag">Shopify</span>
+        </div>
+      </div>
+
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">Finding the product</h3>
+            <p>I tracked which Facebook and Instagram ads gained views fastest. The first two products flopped; the third, silicone lids, took off. Beeswax wraps and silicone bags never got ads of their own but sold as add-ons.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">Store and ads</h3>
+            <p>Two Shopify stores, in English and German, with a fast theme, photo reviews, bundles and upsells. I produced the video ads myself and scaled Meta spend to €1,000–1,500 a day.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">When it scaled</h3>
+            <p>Growth broke the operation, not the ads. Orders moved to a sourcing agent in Shenzhen with about seven days' delivery, support went to email templates and student friends, and a private loan bridged PayPal holding back up to 30% of revenue.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="stats stats--case" aria-label="Results at a glance">
+      <div class="stat">
+        <div class="stat-num">€100k</div>
+        <div class="stat-lbl">Revenue in<br>two months</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3–4</div>
+        <div class="stat-lbl">Return on<br>ad spend</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">€1.5k</div>
+        <div class="stat-lbl">Ad spend per<br>day, at peak</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7 days</div>
+        <div class="stat-lbl">Delivery<br>to customers</div>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="shot-frame">
+        <ul class="frames">
+          <li><img src="assets/keepitfresh-ad-1.webp" alt="Ad frame: hands stretch a blue silicone lid over a bowl. Caption: People around the world are saying no to single-use plastic." width="400" height="400" loading="lazy" decoding="async"></li>
+          <li><img src="assets/keepitfresh-ad-2.webp" alt="Ad frame: a halved watermelon sealed with a clear silicone lid. Caption: The airtight seal keeps food fresh." width="400" height="400" loading="lazy" decoding="async"></li>
+          <li><img src="assets/keepitfresh-ad-3.webp" alt="Ad frame: a pineapple half next to a roll of cling film. Caption: Plastic needs over a thousand years to decompose." width="400" height="400" loading="lazy" decoding="async"></li>
+          <li><img src="assets/keepitfresh-ad-4.webp" alt="Ad frame: a stretch test labelled Duplicate versus Original KeepItFresh." width="400" height="400" loading="lazy" decoding="async"></li>
+          <li><img src="assets/keepitfresh-ad-5.webp" alt="Ad frame: silicone lids in a dishwasher. Caption: BPA free and safe for dishwasher, microwave and freezer." width="400" height="400" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <figcaption class="shot-caption"><span class="shot-label">The ad</span>Five frames from a 53-second video I produced myself. The whole story runs as on-screen text for people scrolling without sound: the plastic problem, the airtight seal, the original against cheap copies, the features, and a 60% offer at the end. <span class="shot-hint">Swipe for all five frames.</span></figcaption>
+    </figure>
+
+    <div class="case-retro">
+      <p class="case-retro-label">Looking back</p>
+      <p>No later product broke even, and selling what Amazon offered cheaper and faster wasn't worth building on, so I stopped in 2021. Today I would test the add-ons as products of their own, keep the list of past buyers working with seasonal offers, run split tests even when things work, and let AI agents take routine support and a daily ad report.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== CASE STUDY 04 · COACHING BUSINESS =========== -->
+<section class="section section--cream" id="coaching">
+  <div class="wrap">
+    <span class="eyebrow">Business Case · Coaching</span>
+
+    <div class="case">
+      <div>
+        <img class="case-logo" src="assets/soul-and-purpose-logo.webp" alt="Soul and Purpose" width="526" height="114" loading="lazy" decoding="async">
+        <h2 class="display">
+          A coaching business from <span class="accent">zero</span>
+        </h2>
+        <p class="case-sub">From 2021 to 2025 I ran Soul and Purpose: a 15-week one-to-one program, priced from €2,500 up to €4,000. About 30 clients went through it, up to seven at a time, partly while I lived in South America and Southeast Asia.</p>
+        <p class="case-takeaway">Several hundred discovery calls taught me the core of product work: find the need behind what people say.</p>
+        <div class="tags">
+          <span class="tag">Customer Discovery</span>
+          <span class="tag">Offer &amp; Pricing</span>
+          <span class="tag">Sales Funnel</span>
+          <span class="tag">Remote</span>
+        </div>
+      </div>
+
+      <ol class="case-steps">
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3 class="case-step-title">The offer</h3>
+            <p>15 weeks at one fixed price: a weekly one-to-one call, material to work through and one small habit a week. Clients rated twelve areas of life at the start and the end. Twice I also mentored new coaches on positioning, offer, pricing, website and funnel.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3 class="case-step-title">The funnel</h3>
+            <p>Instagram content, direct messages, a free first call, then a sales call I closed myself. Paid Meta ads brought more calls but worse fits, so I stopped them. Referrals never came; few people talk openly about this topic.</p>
+          </div>
+        </li>
+        <li class="case-step">
+          <span class="case-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3 class="case-step-title">Remote and results</h3>
+            <p>Half a year in South America with calls from 8 a.m., half a year in Southeast Asia with calls late into the night. About 30 clients, one renewal, many positive Trustpilot reviews and video testimonials from six clients.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="stats stats--case" aria-label="Results at a glance">
+      <div class="stat">
+        <div class="stat-num">~30</div>
+        <div class="stat-lbl">Clients<br>coached</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-lbl">Clients at<br>once (peak)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">€4k</div>
+        <div class="stat-lbl">Price, up<br>from €2.5k</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15</div>
+        <div class="stat-lbl">Weeks per<br>program</div>
+      </div>
+    </div>
+
+    <figure class="flow" aria-labelledby="flow-title">
+      <figcaption><h3 class="flow-title" id="flow-title">How clients found me</h3></figcaption>
+      <ol class="flow-steps">
+        <li class="flow-step">
+          <span class="flow-num">01</span>
+          <span class="flow-name">Instagram content</span>
+          <span class="flow-note">1,600 followers, plus YouTube and a podcast</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">02</span>
+          <span class="flow-name">Direct messages</span>
+          <span class="flow-note">Conversations started by the content</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-num">03</span>
+          <span class="flow-name">Free first call</span>
+          <span class="flow-note">10–15 of them for every new client</span>
+        </li>
+        <li class="flow-step flow-step--end">
+          <span class="flow-num">04</span>
+          <span class="flow-name">Sales call</span>
+          <span class="flow-note">Closed myself, about 30 clients in total</span>
+        </li>
+      </ol>
+    </figure>
+
+    <div class="case-retro">
+      <p class="case-retro-label">Looking back</p>
+      <p>By the end of 2024 I wanted to improve products rather than coach people, so I closed the business in June 2025 and started UX Design at THI. My only metric was a self-rating at the start and the end; today I would track every step of the funnel and each client's progress.</p>
+    </div>
+  </div>
+</section>
+
+
 <!-- =========== JOURNEY =========== -->
 <section class="section section--dark" id="journey">
   <div class="wrap">
@@ -1871,9 +2228,9 @@
           <small>Active</small>
         </div>
         <div>
-          <p class="journey-org">Self-employed · Maths, grades 5–13</p>
+          <p class="journey-org">Self-employed · Grades 5–13</p>
           <h3 class="journey-role">Tutoring &amp; Tutor Matching</h3>
-          <p class="journey-desc">My own tutoring business since 2021: 1:1 maths for grades 5–13, sold as weekly packages and marketed myself. Since 2026 I also match incoming requests with other tutors — constant stakeholder work between parents, students and tutors.</p>
+          <p class="journey-desc">My own tutoring business since 2021: 1:1 lessons in maths, English and German for grades 5–13, sold as weekly packages and marketed myself. Since 2026 I also match incoming requests with other tutors — constant stakeholder work between parents, students and tutors.</p>
         </div>
       </article>
 
@@ -1883,21 +2240,23 @@
           <small>Self-employed</small>
         </div>
         <div>
-          <p class="journey-org">Online Coaching Business</p>
-          <h3 class="journey-role">Coach &amp; Content Creator</h3>
-          <p class="journey-desc">1:1 coaching on finding your calling, handling emotions and building confidence — and occasionally mentoring clients who were building their own coaching business. It taught me to break complex topics into clear steps and to meet people where they are.</p>
+          <p class="journey-org">Soul and Purpose · Online Coaching</p>
+          <h3 class="journey-role">Founder &amp; Coach</h3>
+          <p class="journey-desc">My own coaching business: a 15-week 1:1 program on finding your calling, handling emotions and building confidence, priced from €2,500 up to €4,000, with about 30 clients — plus mentoring for two clients building their own coaching business. It taught me to break complex topics into clear steps and to meet people where they are.</p>
+          <a class="journey-link" href="#coaching">Read the case study <span class="arrow">→</span></a>
         </div>
       </article>
 
       <article class="journey-item">
         <div class="journey-time">
-          2018 – 2025
+          2018 – 2021
           <small>Founder</small>
         </div>
         <div>
-          <p class="journey-org">Porta Weisbäcker GmbH · E-Commerce</p>
+          <p class="journey-org">saveyourfood.co · KeepItFresh · E-Commerce</p>
           <h3 class="journey-role">Founder &amp; Operator</h3>
-          <p class="journey-desc">Founded and scaled a worldwide e-commerce brand to six-figure revenue — starting as a sole proprietorship in 2018 and incorporating as a GmbH in 2020 to manage risk. Built the Shopify store myself, ran all paid advertising (Meta &amp; Google Ads), and handled operations end-to-end before outsourcing support once I had templated every recurring case.</p>
+          <p class="journey-desc">Built a dropshipping brand for sustainable kitchenware: €100,000 in revenue in two months at a return on ad spend of 3 to 4. Built the Shopify stores myself, produced the video ads, ran all paid advertising and handled operations end to end before outsourcing support once every recurring case had a template. Incorporated Porta Weisbäcker GmbH in 2020 for further product tests; none broke even, so I stopped in 2021.</p>
+          <a class="journey-link" href="#ecommerce">Read the case study <span class="arrow">→</span></a>
         </div>
       </article>
 

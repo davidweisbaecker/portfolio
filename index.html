@@ -1291,7 +1291,8 @@
       color: var(--accent);
       text-shadow: 0 0 12px var(--accent-glow);
     }
-    /* Tags activate together as a single row group */
+    /* Tags activate together as a single row group, independent of the
+       headings: from the middle of the screen up to the top 10 % */
     .tag.is-active {
       color: var(--accent);
       border-color: var(--accent);
@@ -2890,8 +2891,9 @@
   /* ---------- Scroll-spy active state ----------
      Targets are organised as "groups" — each group activates as a single
      unit, even if it contains multiple DOM elements. This lets stat row
-     pairs and tag rows light up together while still treating journey
-     items, principles and case steps individually.
+     pairs light up together while still treating journey items,
+     principles and case steps individually. Tag rows have their own rule
+     (see below).
 
      The switch is measured at the part that changes colour (a title, a
      stat label, a tag row, the button), not at the middle of the whole
@@ -2900,6 +2902,10 @@
      middle of the screen (50 %). It stays lit until the next group
      crosses that line or it leaves the top 10 %. Exactly one group is
      active at a time.
+
+     Tag rows don't take part in that: a tag row turns green when its first
+     line crosses the middle of the screen and stays green until it reaches
+     the top 10 %, even while a heading below it is lit.
 
      Implementation: passive scroll + resize listeners throttled via rAF,
      with read/compute/write phases batched to avoid layout thrashing.
@@ -2919,10 +2925,12 @@
     groups.push(stats.slice(i, i + 2));
   }
 
-  // Tag rows — all tags inside a .tags container activate together
+  // Tag rows — all tags inside a .tags container light up together, on
+  // their own rule, independent of the single active group
+  const tagRows = [];
   document.querySelectorAll('.tags').forEach(function (container) {
     const tags = Array.prototype.slice.call(container.querySelectorAll('.tag'));
-    if (tags.length) groups.push(tags);
+    if (tags.length) tagRows.push(tags);
   });
 
   // Flat list of every element that can receive .is-active (for cleanup)
@@ -2937,7 +2945,7 @@
   // arrow is handled on its own, not as part of the single active group.
   const flowArrows = Array.prototype.slice.call(document.querySelectorAll('.flow-step:not(:last-child)'));
 
-  if (allElements.length) {
+  if (allElements.length || tagRows.length) {
     function groupCenter(group) {
       let sum = 0;
       group.forEach(function (el) {
@@ -2968,8 +2976,9 @@
       const topLine     = vh * 0.10;
       const triggerLine = vh * 0.50;
 
-      // READ PHASE: where the lit part of every group sits
+      // READ PHASE: where the lit part of every group and tag row sits
       const lines = groups.map(groupLine);
+      const tagLines = tagRows.map(groupLine);
 
       // COMPUTE PHASE: pick the single best group, the lowest one between
       // the two lines (the one that crossed the trigger line last)
@@ -3011,6 +3020,10 @@
       const activeSet = activeGroup ? new Set(activeGroup) : new Set();
       allElements.forEach(function (el) {
         el.classList.toggle('is-active', activeSet.has(el));
+      });
+      tagRows.forEach(function (row, k) {
+        const on = tagLines[k] >= topLine && tagLines[k] <= triggerLine;
+        row.forEach(function (tag) { tag.classList.toggle('is-active', on); });
       });
       if (ctaLinks) {
         ctaLinks.classList.toggle('is-active', ctaCenter >= vh * 0.40 && ctaCenter <= vh * 0.92);

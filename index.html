@@ -23,12 +23,34 @@
 <meta name="twitter:image" content="https://davidweisbaecker.github.io/portfolio/preview.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjYTNlNjM1Ii8+PHRleHQgeD0iNTAiIHk9IjU0IiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3MCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBhMGEwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkQ8L3RleHQ+PC9zdmc+">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fonts: served from this site (see @font-face below), nothing loads from Google -->
+<link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+  /* ---------- FONTS ----------
+     Self-hosted copies of the Google Fonts files (latin + latin-ext),
+     so no visitor data goes to Google. Licence: assets/fonts/OFL.txt */
+  @font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap;
+    src: url("assets/fonts/space-grotesk-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap;
+    src: url("assets/fonts/space-grotesk-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Inter"; font-style: normal; font-weight: 300 700; font-display: swap;
+    src: url("assets/fonts/inter-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "Inter"; font-style: normal; font-weight: 300 700; font-display: swap;
+    src: url("assets/fonts/inter-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600; font-display: swap;
+    src: url("assets/fonts/jetbrains-mono-latin-ext.woff2") format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600; font-display: swap;
+    src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
   /* ---------- TOKENS ---------- */
   :root {
     /* Backgrounds */
@@ -1239,6 +1261,23 @@
   @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 12px var(--accent-glow); }
     50%      { box-shadow: 0 0 0 9px transparent,     0 0 22px var(--accent-glow); }
+  }
+  /* Legal links (legal notice, privacy). Padding gives a ~46px tap target. */
+  .footer-legal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+    margin-top: 1rem;
+  }
+  .footer-legal a {
+    color: var(--fg-mute);
+    padding: .75rem .25rem;
+    transition: color .2s ease;
+  }
+  .footer-legal a:focus-visible { color: var(--accent); outline: none; text-decoration: underline; text-underline-offset: .35em; }
+  @media (hover: hover) and (pointer: fine) {
+    .footer-legal a:hover { color: var(--accent); }
   }
 
   /* ============================================================
@@ -2605,6 +2644,11 @@
   © 2026 David Weisbäcker · Product Management · UX Design
   <br>
   <span class="avail">Open to PM internships from September 2027</span>
+  <nav class="footer-legal" aria-label="Legal">
+    <a href="legal-notice.html">Legal notice</a>
+    <span aria-hidden="true">·</span>
+    <a href="privacy.html">Privacy</a>
+  </nav>
 </footer>
 
 

@@ -1357,19 +1357,16 @@
     .case-step.is-active .case-step-num {
       text-shadow: 0 0 18px var(--accent-glow);
     }
-    /* Flow cards (the steps joined by arrows): the arrows are white here.
-       One arrow per flow is green at a time: the uppermost one between
-       10 % and 35 % of the screen height. It stays green until it reaches
-       the top 10 %, then the next one takes over (set in JS as
-       .is-arrow-lit). (.flow-steps raises the specificity over the base
-       arrow rule further down.) */
-    .flow-steps .flow-step:not(:last-child)::after {
-      color: var(--fg);
-      transition: color .55s ease, text-shadow .55s ease;
+    /* Flow cards (the steps joined by arrows) activate individually, like
+       the case-study steps: the border turns green when the card's top
+       edge crosses the middle of the screen. The last card works the same
+       way, and the arrows stay white. (.flow-steps raises the specificity
+       over the base card rule further down.) */
+    .flow-steps .flow-step {
+      transition: border-color .55s ease;
     }
-    .flow-steps .flow-step.is-arrow-lit:not(:last-child)::after {
-      color: var(--accent);
-      text-shadow: 0 0 12px var(--accent-glow);
+    .flow-steps .flow-step.is-active {
+      border-color: var(--accent);
     }
     /* "Connect on LinkedIn" in the hero gets an accent border */
     .btn--linkedin {
@@ -1455,6 +1452,7 @@
     .case-step:hover .case-step-num {
       text-shadow: 0 0 18px var(--accent-glow);
     }
+    .flow-step:hover { border-color: var(--accent); }
     .deck-btn:not(:disabled):hover {
       border-color: var(--accent);
       color: var(--accent);
@@ -1620,8 +1618,8 @@
     padding: 1.25rem 1.25rem 1.4rem;
     border: 1px solid var(--border-mid);
     background: var(--bg);
+    transition: border-color .2s ease;
   }
-  .flow-step--end { border-color: var(--accent); box-shadow: 0 0 24px var(--accent-dim); }
   .flow-name {
     font-family: var(--f-display);
     font-weight: 600;
@@ -1630,14 +1628,15 @@
     color: var(--fg);
   }
   .flow-note { color: var(--fg-mute); font-size: .9rem; line-height: 1.55; }
-  /* Arrow to the next step: down on phones, right on wider screens */
+  /* Arrow to the next step: down on phones, right on wider screens.
+     The arrows stay white; only the cards light up. */
   .flow-step:not(:last-child)::after {
     content: "↓";
     position: absolute;
     left: 50%;
     bottom: -1.45rem;
     transform: translateX(-50%);
-    color: var(--accent);
+    color: var(--fg);
     font-family: var(--f-mono);
     font-size: 1.15rem;
     line-height: 1;
@@ -2123,7 +2122,7 @@
           <span class="flow-name">Free first call</span>
           <span class="flow-note">10–15 of them for every new client</span>
         </li>
-        <li class="flow-step flow-step--end">
+        <li class="flow-step">
           <span class="flow-num">04</span>
           <span class="flow-name">Sales call</span>
           <span class="flow-note">Closed myself, about 30 clients in total</span>
@@ -2385,7 +2384,7 @@
           <span class="flow-name">Exercise booklet</span>
           <span class="flow-note">One per night, to stay within my usage budget</span>
         </li>
-        <li class="flow-step flow-step--end">
+        <li class="flow-step">
           <span class="flow-num">04</span>
           <span class="flow-name">Flashcards</span>
           <span class="flow-note">15–40 Anki cards per script</span>
@@ -2942,7 +2941,7 @@
      Targets are organised as "groups" — each group activates as a single
      unit, even if it contains multiple DOM elements. This lets stat row
      pairs light up together while still treating journey items,
-     principles and case steps individually. Tag rows have their own rule
+     principles, case steps and flow cards individually. Tag rows have their own rule
      (see below).
 
      The switch is measured at the part that changes colour (a title, a
@@ -2962,9 +2961,9 @@
      ----------------------------------------------------------------- */
   const groups = [];
 
-  // Individual targets — each journey item, principle, case step and the
-  // hero's LinkedIn button is its own group
-  document.querySelectorAll('.btn--linkedin, .journey-item, .principle, .case-step').forEach(function (el) {
+  // Individual targets — each journey item, principle, case step, flow
+  // card and the hero's LinkedIn button is its own group
+  document.querySelectorAll('.btn--linkedin, .journey-item, .principle, .case-step, .flow-step').forEach(function (el) {
     groups.push([el]);
   });
 
@@ -2990,10 +2989,6 @@
 
   // The two contact buttons at the end of the page (handled on their own)
   const ctaLinks = document.querySelector('.cta-links');
-
-  // Flow cards with an arrow below them (every card but the last). Each
-  // arrow is handled on its own, not as part of the single active group.
-  const flowArrows = Array.prototype.slice.call(document.querySelectorAll('.flow-step:not(:last-child)'));
 
   if (allElements.length || tagRows.length) {
     function groupCenter(group) {
@@ -3047,25 +3042,6 @@
       // page they rest at about 50–65 % on phones, so they stay lit).
       const ctaCenter = ctaLinks ? groupCenter([ctaLinks]) : null;
 
-      // Flow arrows: each arrow sits in the gap below its card. One arrow per
-      // flow is lit: the uppermost one between 10 % and 35 % of the screen
-      // height. It stays lit until it reaches the top 10 %, then the next
-      // one below takes over, so there is never more than one green arrow.
-      const arrowTop = vh * 0.10;
-      const arrowBottom = vh * 0.35;
-      const litFlows = new Set();
-      const arrowLit = flowArrows.map(function (step) {
-        const next = step.nextElementSibling;
-        const bottom = step.getBoundingClientRect().bottom;
-        const y = next ? (bottom + next.getBoundingClientRect().top) / 2 : bottom;
-        // flowArrows runs top to bottom, so the first hit per flow is the uppermost
-        if (y >= arrowTop && y <= arrowBottom && !litFlows.has(step.parentNode)) {
-          litFlows.add(step.parentNode);
-          return true;
-        }
-        return false;
-      });
-
       // WRITE PHASE: sync .is-active across every tracked element
       const activeSet = activeGroup ? new Set(activeGroup) : new Set();
       allElements.forEach(function (el) {
@@ -3078,9 +3054,6 @@
       if (ctaLinks) {
         ctaLinks.classList.toggle('is-active', ctaCenter >= vh * 0.40 && ctaCenter <= vh * 0.92);
       }
-      flowArrows.forEach(function (step, k) {
-        step.classList.toggle('is-arrow-lit', arrowLit[k]);
-      });
     }
 
     let rafId = null;

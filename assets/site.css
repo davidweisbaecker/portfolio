@@ -1868,3 +1868,7 @@
   .page-top { background: var(--bg); }
   .page-top .topbar { position: relative; }
   a.topbar-logo { color: inherit; text-decoration: none; }
+
+  /* A single screenshot in a frame (coaching homepage) */
+  .shot--single { max-width: 980px; }
+  .shot--single img { display: block; width: 100%; height: auto; background: var(--bg-elev); }
